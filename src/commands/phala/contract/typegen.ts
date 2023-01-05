@@ -1,5 +1,6 @@
 import {Command, Flags} from '@oclif/core'
 import execa from "execa";
+import fs = require("fs-extra");
 import path = require("node:path")
 import { Spinner } from "@astar-network/swanky-core";
 
@@ -28,13 +29,21 @@ export default class PhalaTypings extends Command {
   ];
 
   public async run(): Promise<void> {
-    const {args, flags} = await this.parse(PhalaTypings)
+    // TODO: change when devphase implements command-utils like swanky
+    const configExists = await fs.pathExists("devphase.config.ts");
+    if (!configExists) {
+      throw new Error("No 'devphase.config.ts' detected in current folder!");
+    }
+    const {args, flags} = await this.parse(PhalaTypings);
     const spinner = new Spinner(flags.verbose);
-    const projectPath = path.resolve()
+    const projectPath = path.resolve();
 
     this.log(`Create type bindings for contracts`)
     await spinner.runCommand(
-      () => execa.command(`yarn devphase typings ${args.contractName} ${args.watchFlag}`, { cwd: projectPath }),
+      async () => {
+        const {stdout} = await execa.command(`yarn devphase typings ${args.contractName} ${args.watchFlag}`, {cwd: projectPath});
+        this.log(stdout);
+      },
       `Creating type bindings for Phat Contract ${args.contractName}`
     )
 

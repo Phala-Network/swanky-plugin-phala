@@ -34,7 +34,11 @@ export default class PhalaCompile extends Command {
 
     this.log(`Compile contract(s)`)
     await spinner.runCommand(
-      () => execa.command(`yarn devphase compile ${args.contractName} ${args.watchFlag}`, { cwd: projectPath }),
+      async () => {
+        const {stdout} = await
+          execa.command(`yarn devphase compile ${args.contractName} ${args.watchFlag}`, { cwd: projectPath })
+        this.log(stdout);
+      },
       `Compiling Phat Contract ${args.contractName}`
     )
 

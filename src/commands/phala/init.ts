@@ -1,6 +1,7 @@
 import {Command, Flags} from '@oclif/core'
 import {
-  copyTemplateFiles,
+  checkCliDependencies,
+  copyTemplateFiles, installDeps,
   processTemplates,
   Spinner,
 } from "@astar-network/swanky-core";
@@ -78,6 +79,9 @@ export default class PhalaInit extends Command {
     const answers = await inquirer.prompt(questions);
 
     const spinner = new Spinner(flags.verbose);
+
+    await spinner.runCommand(() => checkCliDependencies(spinner), "Checking dependencies");
+
     this.log(`Initializing`)
 
     await spinner.runCommand(
@@ -112,13 +116,18 @@ export default class PhalaInit extends Command {
     );
 
     if (flags["phala-node"] || answers.usePhalaNode) {
-      const basePath = path.resolve();
       await spinner.runCommand(
-        () => execa.command(`yarn install`, { cwd: projectPath }),
-        "Setting up repo..."
+        () => installDeps(projectPath),
+        "Installing dependencies",
+        "",
+        "",
+        false
       );
       await spinner.runCommand(
-        () => execa.command(`yarn devphase init`, { cwd: projectPath }),
+        async () => {
+          const {stdout} = await execa.command(`yarn devphase init`, { cwd: projectPath });
+          this.log(stdout);
+        },
         "Downloading Phala binaries for local testnet...");
     }
 
