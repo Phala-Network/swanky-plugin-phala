@@ -50,11 +50,11 @@ https://github.com/oclif/plugin-plugins
 
 <!-- usage -->
 ```sh-session
-$ npm install -g @astar-network/swanky-plugin-phala
+$ npm install -g @phala/swanky-plugin-phala
 $ phala COMMAND
 running command...
-$ phala (--version)
-@astar-network/swanky-plugin-phala/0.2.0 linux-x64 node-v18.12.1
+$ phala (--version|-V|-v)
+@phala/swanky-plugin-phala/0.0.1 linux-x64 node-v18.12.1
 $ phala --help [COMMAND]
 USAGE
   $ phala COMMAND
@@ -65,13 +65,19 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`phala --help [COMMAND]`](#phala-help-command)
-* [`phala phala compile [CONTRACTNAME]`](#phala-phala-compile-contractname)
-* [`phala phala init [PROJECTNAME]`](#phala-phala-compile-projectname)
-* [`phala phala stack`](#phala-phala-stack)
-* [`phala phala stack-setup`](#phala-phala-stack-setup-file)
-* [`phala phala test [FILE]`](#phala-phala-test-file)
-* [`phala phala typings [CONTRACTNAME]`](#phala-phala-typings-file)
+- [x] [`phala help [COMMAND]`](#phala-help-command)
+- [ ] [`phala phala account create [FILE]`](#phala-phala-account-create-file)
+- [ ] [`phala phala account list [FILE]`](#phala-phala-account-list-file)
+- [ ] [`phala phala check [FILE]`](#phala-phala-check-file)
+- [ ] [`phala phala contract call [FILE]`](#phala-phala-contract-call-file)
+- [x] [`phala phala contract compile CONTRACTNAME [WATCHFLAG]`](#phala-phala-contract-compile-contractname-watchflag)
+- [ ] [`phala phala contract deploy [FILE]`](#phala-phala-contract-deploy-file)
+- [ ] [`phala phala contract new [FILE]`](#phala-phala-contract-new-file)
+- [ ] [`phala phala contract test [FILE]`](#phala-phala-contract-test-file)
+- [x] [`phala phala contract typegen CONTRACTNAME [WATCHFLAG]`](#phala-phala-contract-typegen-contractname-watchflag)
+- [x] [`phala phala init PROJECTNAME`](#phala-phala-init-projectname)
+- [x] [`phala phala node setup`](#phala-phala-node-setup)
+- [x] [`phala phala node start`](#phala-phala-node-start)
 
 ## `phala help [COMMAND]`
 
@@ -79,7 +85,7 @@ Display help for phala.
 
 ```
 USAGE
-  $ phala --help [COMMAND] [-n]
+  $ phala help [COMMAND] [-n]
 
 ARGUMENTS
   COMMAND  Command to show help for.
@@ -93,137 +99,236 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.19/src/commands/help.ts)_
 
-## `phala phala compile [CONTRACTNAME]`
+## `phala phala account create [FILE]`
 
-Compile Phala Phat Contract
-
-```
-USAGE
-  $ phala phala compile [CONTRACTNAME] [-w <value>] [-r]
-
-FLAGS
-  -r, --force         compile in release mode
-  -w, --name=<value>  watch for changes
-
-DESCRIPTION
-  Compile Contract
-
-EXAMPLES
-  $ phala phala compile
-```
-## `phala phala init [PROJECTDIR]`
-
-Generate a new Phat Contract environment and download local testnet binares.
+describe the command here
 
 ```
 USAGE
-  $ phala phala init [PROJECTDIR]
-
-FLAGS
-  -v, --verbose
-
-DESCRIPTION
-  Generate a new Phat Contract environment
-
-EXAMPLES
-  $ phala phala init my_new_project
-```
-
-## `phala phala stack`
-
-Starting local stack (node + pruntime + pherry)
-
-```
-USAGE
-  $ phala phala stack
-
-DESCRIPTION
-  Starting local stack (node + pruntime + pherry)
-
-EXAMPLES
-  $ phala phala stack
-```
-
-## `phala phala stack-setup`
-
-Configuring the local testnet
-
-```
-USAGE
-  $ phala phala stack-setup
-
-DESCRIPTION
-  Configuring the local testnet
-
-EXAMPLES
-  $ phala phala stack-setup
-```
-
-## `phala phala test [FILE]`
-
-TODO
-
-```
-USAGE
-  $ phala phala test [FILE] [-n <value>] [-f]
+  $ phala phala account create [FILE] [-n <value>] [-f]
 
 FLAGS
   -f, --force
   -n, --name=<value>  name to print
 
 DESCRIPTION
-  TODO
+  describe the command here
 
 EXAMPLES
-  $ phala phala test
+  $ phala phala account create
+```
+
+## `phala phala account list [FILE]`
+
+describe the command here
+
 ```
 USAGE
-  $ phala phala init [PROJECTNAME]
+  $ phala phala account list [FILE] [-n <value>] [-f]
 
 FLAGS
-  -v, --verbose
+  -f, --force
+  -n, --name=<value>  name to print
 
 DESCRIPTION
   describe the command here
 
 EXAMPLES
-  $ phala phala init my_new_project
+  $ phala phala account list
 ```
 
-## `phala phala stack`
+## `phala phala check [FILE]`
 
-Starting local stack (node + pruntime + pherry)
-
-```
-USAGE
-  $ phala phala stack
-
-DESCRIPTION
-  Starting local stack (node + pruntime + pherry)
-
-EXAMPLES
-  $ phala phala stack
-```
-
-## `phala phala stack-setup [FILE]`
-
-TODO
-
-## `phala phala typings [CONTRACTNAME]`
-
-Typings for the Phat Contract
+describe the command here
 
 ```
 USAGE
-  $ phala phala typings [CONTRACTNAME] -w
+  $ phala phala check [FILE] [-n <value>] [-f]
 
 FLAGS
-  -w, --watch
+  -f, --force
+  -n, --name=<value>  name to print
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ phala phala check
+```
+
+## `phala phala contract call [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ phala phala contract call [FILE] [-n <value>] [-f]
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  name to print
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ phala phala contract call
+```
+
+## `phala phala contract compile CONTRACTNAME [WATCHFLAG]`
+
+Compile Contract
+
+```
+USAGE
+  $ phala phala contract compile [CONTRACTNAME] [WATCHFLAG] [-v]
+
+ARGUMENTS
+  CONTRACTNAME  contract name of phat contract
+  WATCHFLAG     watch for changes
+
+FLAGS
+  -v, --verbose
+
+DESCRIPTION
+  Compile Contract
+
+EXAMPLES
+  $ phala phala contract compile [contractName] [--watch] [--release]
+```
+
+## `phala phala contract deploy [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ phala phala contract deploy [FILE] [-n <value>] [-f]
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  name to print
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ phala phala contract deploy
+```
+
+## `phala phala contract new [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ phala phala contract new [FILE] [-n <value>] [-f]
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  name to print
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ phala phala contract new
+```
+
+## `phala phala contract test [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ phala phala contract test [FILE] [-n <value>] [-f]
+
+FLAGS
+  -f, --force
+  -n, --name=<value>  name to print
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ phala phala contract test
+```
+
+## `phala phala contract typegen CONTRACTNAME [WATCHFLAG]`
+
+Typings
+
+```
+USAGE
+  $ phala phala contract typegen [CONTRACTNAME] [WATCHFLAG] [-v]
+
+ARGUMENTS
+  CONTRACTNAME  contract name of phat contract
+  WATCHFLAG     watch for changes
+
+FLAGS
+  -v, --verbose
 
 DESCRIPTION
   Typings
 
 EXAMPLES
-  $ phala phala typings
+  $ phala phala contract typegen [contractName] [--watch]
+```
+
+## `phala phala init PROJECTNAME`
+
+Generate a new Phat Contract environment
+
+```
+USAGE
+  $ phala phala init [PROJECTNAME] [--phala-node] [--template blank|http_client|phat_hello] [-v]
+
+ARGUMENTS
+  PROJECTNAME  directory name of new project
+
+FLAGS
+  -v, --verbose
+  --phala-node
+  --template=<option>  <options: blank|http_client|phat_hello>
+
+DESCRIPTION
+  Generate a new Phat Contract environment
+
+EXAMPLES
+  $ phala phala init [projectName]
+```
+
+## `phala phala node setup`
+
+Configuring the local testnet
+
+```
+USAGE
+  $ phala phala node setup [-v]
+
+FLAGS
+  -v, --verbose
+
+DESCRIPTION
+  Configuring the local testnet
+
+EXAMPLES
+  $ phala phala node setup
+```
+
+## `phala phala node start`
+
+Starting local stack (node + pruntime + pherry)
+
+```
+USAGE
+  $ phala phala node start
+
+DESCRIPTION
+  Starting local stack (node + pruntime + pherry)
+
+EXAMPLES
+  $ phala phala node start
 ```
 <!-- commandsstop -->
