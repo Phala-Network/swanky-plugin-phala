@@ -12,20 +12,20 @@
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.1.4",
     "@oclif/plugin-version": "^1.1.3",
-    "@phala/sdk": "^0.3.4",
+    "@phala/sdk": "^0.3.5-beta.11",
+    "@types/mocha": "^10.0.0",
     "change-case": "^4.1.2",
     "decompress": "^4.2.1",
     "devphase": "^0.0.33",
     "fs-extra": "^10.1.0",
-    "inquirer": "^8.0.0",
-    "@types/mocha": "^10.0.0"
+    "inquirer": "^8.0.0"
   },
   "devDependencies": {
     "@oclif/test": "^2.2.4",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.13",
-    "@types/node": "^18.11.9",
     "@types/inquirer": "^8.0.0",
+    "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "chai": "^4",
@@ -38,7 +38,7 @@
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",
     "tslib": "^2.3.1",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.4"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -75,6 +75,15 @@
     "topics": {
       "phala": {
         "description": "Swanky plugin to setup Phala developer environment for Phat Contracts."
+      },
+      "phala:account": {
+        "description": "Create or list accounts."
+      },
+      "phala:contract": {
+        "description": "Create, compile, deploy, test or call Phat Contracts."
+      },
+      "phala:node": {
+        "description": "Download binaries to start local testnet and configure for Phat Contract development."
       }
     }
   },

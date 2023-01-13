@@ -17,13 +17,18 @@ export default class PhalaCompile extends Command {
   static args = [
     {
       name: "contractName",
-      required: true,
+      required: false,
       description: "contract name of phat contract",
     },
     {
       name: "watchFlag",
       required: false,
       description: "watch for changes"
+    },
+    {
+      name: "releaseFlag",
+      required: false,
+      description: "cargo contract build --release"
     }
   ];
 
@@ -36,7 +41,7 @@ export default class PhalaCompile extends Command {
     await spinner.runCommand(
       async () => {
         const {stdout} = await
-          execa.command(`yarn devphase compile ${args.contractName} ${args.watchFlag}`, { cwd: projectPath })
+          execa.command(`yarn devphase contract compile -c ${args.contractName} ${args.watchFlag} ${args.releaseFlag}`, { cwd: projectPath })
         this.log(stdout);
       },
       `Compiling Phat Contract ${args.contractName}`
