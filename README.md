@@ -15,7 +15,7 @@ npm i -g @astar-network/swanky-cli
 Clone this repo, run `yarn install` then run `yarn build`, and link it to swanky-cli:
 
 ```
-swanky plugins:install [PATH_TO_REPO]
+swanky plugins:link [PATH_TO_REPO]
 ```
 
 > **NOTE** This does not work currently. Use dev commands instead by executing `./bin/dev phala [command]` instead.

@@ -15,15 +15,15 @@
     "@phala/sdk": "^0.3.4",
     "change-case": "^4.1.2",
     "decompress": "^4.2.1",
-    "devphase": "^0.0.30",
+    "devphase": "^0.0.33",
+    "fs-extra": "^10.1.0",
     "inquirer": "^8.0.0",
-    "fs-extra": "^10.1.0"
+    "@types/mocha": "^10.0.0"
   },
   "devDependencies": {
     "@oclif/test": "^2.2.4",
     "@types/chai": "^4",
     "@types/fs-extra": "^9.0.13",
-    "@types/mocha": "^9.0.0",
     "@types/node": "^18.11.9",
     "@types/inquirer": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
@@ -32,7 +32,7 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "mocha": "^9",
+    "mocha": "^10.0.0",
     "oclif": "^3",
     "prettier": "^2.7.1",
     "shx": "^0.3.3",
@@ -68,12 +68,13 @@
       "-V"
     ],
     "plugins": [
-      "@oclif/plugin-help"
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
     ],
     "topicSeparator": " ",
     "topics": {
-      "init": {
-        "description": "Init a new WASM Phat contract project"
+      "phala": {
+        "description": "Swanky plugin to setup Phala developer environment for Phat Contracts."
       }
     }
   },
