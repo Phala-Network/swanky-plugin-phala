@@ -16,6 +16,8 @@ ink_engine = { version = "3.4.0", default-features = false, optional = true }
 scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
 scale-info = { version = "2", default-features = false, features = ["derive"], optional = true }
 
+pink-extension = { version = "0.2", default-features = false }
+
 [lib]
 name = "{{contract_name_snake}}"
 path = "src/lib.rs"
@@ -33,5 +35,6 @@ std = [
     "ink_primitives/std",
     "scale/std",
     "scale-info/std",
+    "pink-extension/std",
 ]
 ink-as-dependency = []
