@@ -49,6 +49,6 @@ export function pickLanguage(): ListQuestion<Answers> {
     name: "contractLanguage",
     type: "list",
     choices: ["pink"],
-    message: "Which contract template should we use?",
+    message: "Which contract language should we use?",
   };
 }

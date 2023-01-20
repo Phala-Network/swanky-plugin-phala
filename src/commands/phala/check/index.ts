@@ -143,7 +143,7 @@ interface Dependency {
 import {Command, Flags} from '@oclif/core'
 
 export default class PhalaCheck extends Command {
-  static description = 'describe the command here'
+  static description = 'Not Available'
 
   static examples = [
     '<%= config.bin %> <%= command.id %>',
@@ -162,7 +162,7 @@ export default class PhalaCheck extends Command {
     const {args, flags} = await this.parse(PhalaCheck)
 
     const name = flags.name ?? 'world'
-    this.log(`hello ${name} from /home/hashwarlock/Projects/Phala/Swanky/swanky-plugin-phala/src/commands/phala/check.ts`)
+    this.log(`swanky phala check not implemented from /home/hashwarlock/Projects/Phala/Swanky/swanky-plugin-phala/src/commands/phala/check.ts`)
     if (args.file && flags.force) {
       this.log(`you input --force and --file: ${args.file}`)
     }
