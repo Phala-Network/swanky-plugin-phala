@@ -375,8 +375,29 @@ Phat Contract typings created successfully!
 
 ### Deploy and Instantiate Contract
 
-> ************Note:************ TODO
->
+```bash
+USAGE
+  $ phala phala contract deploy [CONTRACTNAME] [CONTRACTCONSTRUCTOR] [CTORARGS] [-t <value>] [-n <value>] [-l <value>] [-a
+    <value>]
+
+ARGUMENTS
+  CONTRACTNAME         Contract name
+  CONTRACTCONSTRUCTOR  Contract constructor
+  CTORARGS             Contract constructor arguments
+
+FLAGS
+  -a, --account=<value>       [default: alice] Account used to deploy (alice default)
+  -l, --clusterId=<value>     [default: 0x0000000000000000000000000000000000000000000000000000000000000000] Target
+                              cluster id
+  -n, --network=<value>       [default: local] Target network to deploy (local default)
+  -t, --contractType=<value>  [default: InkCode] Contract type (InkCode default)
+
+DESCRIPTION
+  Deploy contract
+
+EXAMPLES
+  $ phala phala contract deploy [CONTRACT_NAME] [CONSTRUCTOR] -t [CONTRACT_TYPE] -n [NETWORK] -l [CLUSTER_ID] -a [ACCOUNT] [ctorArgs...]
+```
 
 ### Interact with Deployed Contract
 
