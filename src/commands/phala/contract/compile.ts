@@ -3,7 +3,7 @@ import execa from "execa";
 import path = require("node:path")
 import { Spinner } from "@astar-network/swanky-core";
 
-export default class PhalaCompile extends Command {
+export default class PhalaContractCompile extends Command {
   static description = 'Compile Contract'
 
   static examples = [
@@ -33,7 +33,7 @@ export default class PhalaCompile extends Command {
   ];
 
   public async run(): Promise<void> {
-    const {args, flags} = await this.parse(PhalaCompile)
+    const {args, flags} = await this.parse(PhalaContractCompile)
     const projectPath = path.resolve()
     const spinner = new Spinner(flags.verbose);
 

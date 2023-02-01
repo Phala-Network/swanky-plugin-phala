@@ -358,8 +358,22 @@ Phat Contract compiled successfully!
 
 ### Generate Types for Contract
 
-> ************Note:************ TODO
->
+If you have compiled your contract already, the types will be auto-generated at the end of a successful compilation. In the case that the types were not generated for the contract, execute the `swanky phala contract typegen [CONTRACT_NAME]`.
+
+An example of the output will create `typings/` folder with a TypeScript file of the contract's generated types.
+```bash
+└─[$]> swanky phala contract typegen phat_hello
+Create type bindings for contracts
+⠹ Creating type bindings for Phat Contract phat_helloyarn run v1.22.17
+$ /home/hashwarlock/Projects/Phala/Swanky/phala-swankster/node_modules/.bin/devphase typings phat_hello undefined
+[Typings] Starting
+[MultiContractExecutor] Criteria: phat_hello
+[MultiContractExecutor] Matched contracts: [ 'phat_hello' ]
+[TypeBinder] Generating type bindings for: phat_hello
+Done in 0.91s.
+✔ Creating type bindings for Phat Contract phat_hello OK
+Phat Contract typings created successfully!
+```
 
 ### Deploy and Instantiate Contract
 

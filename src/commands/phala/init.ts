@@ -7,9 +7,8 @@ import {
 } from "@astar-network/swanky-core";
 import { paramCase, pascalCase, snakeCase } from "change-case";
 import inquirer from 'inquirer';
-//import { RuntimeContext } from 'devphase';
 
-import { choice, email, name, pickLanguage, pickTemplate } from "../../lib/prompts";
+import { email, name, pickLanguage, pickTemplate } from "../../lib/prompts";
 import execa from 'execa'
 import path = require("node:path")
 import { readdirSync } from "node:fs";
@@ -38,10 +37,6 @@ export default class PhalaInit extends Command {
   ]
 
   static flags = {
-    "phala-node": Flags.boolean(),
-    template: Flags.string({
-      options: getTemplates().contractTemplatesList.map((template) => template.value),
-    }),
     verbose: Flags.boolean({ char: "v" }),
   };
 
@@ -72,10 +67,6 @@ export default class PhalaInit extends Command {
       ),
       email(),
     ];
-
-    // if (!flags["phala-node"]) {
-    //   questions.push(choice("usePhalaNode", "Do you want to download Phala node components for local testnet?"));
-    // }
 
     const answers = await inquirer.prompt(questions);
 
@@ -116,21 +107,20 @@ export default class PhalaInit extends Command {
       "Initializing git"
     );
 
-    // if (flags["phala-node"] || answers.usePhalaNode) {
-      await spinner.runCommand(
-        () => installDeps(projectPath),
-        "Installing dependencies",
-        "",
-        "",
-        false
-      );
-      await spinner.runCommand(
-        async () => {
-          const {stdout} = await execa.command(`yarn devphase init`, { cwd: projectPath });
-          this.log(stdout);
-        },
-        "Downloading Phala binaries for local testnet...");
-    // }
+    await spinner.runCommand(
+      () => installDeps(projectPath),
+      "Installing dependencies",
+      "",
+      "",
+      false
+    );
+    await spinner.runCommand(
+      async () => {
+        const {stdout} = await execa.command(`yarn devphase init`, { cwd: projectPath });
+        this.log(stdout);
+      },
+      "Setting up Phat Contract project...");
+
 
     this.log("Phat Contract project successfully initialised!");
   }

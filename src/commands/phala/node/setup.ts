@@ -4,7 +4,7 @@ import fs = require("fs-extra");
 import path = require("node:path")
 import { Spinner } from "@astar-network/swanky-core";
 
-export default class PhalaStackSetup extends Command {
+export default class PhalaNodeSetup extends Command {
   static description = 'Configuring the local testnet'
 
   static examples = [
@@ -21,7 +21,7 @@ export default class PhalaStackSetup extends Command {
     if (!configExists) {
       throw new Error("No 'devphase.config.ts' detected in current folder!");
     }
-    const {flags} = await this.parse(PhalaStackSetup)
+    const {flags} = await this.parse(PhalaNodeSetup)
     const spinner = new Spinner(flags.verbose);
 
     this.log(`Setting up Phala Stack`)
