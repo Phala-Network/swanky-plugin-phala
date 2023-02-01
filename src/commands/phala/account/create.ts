@@ -4,14 +4,13 @@ import execa from "execa";
 import path = require("node:path");
 
 export default class PhalaAccountCreate extends Command {
-  static description = "Create a new dev account in config";
+  static description = "Not Available. Create a dev account";
 
   static flags = {
-    generate: Flags.boolean({
-      char: "g",
-    }),
-    dev: Flags.boolean({
-      char: "d",
+    alias: Flags.string({
+      char: "a",
+      required: true,
+      description: "Alias name for account"
     }),
   };
 
@@ -27,12 +26,12 @@ export default class PhalaAccountCreate extends Command {
     await spinner.runCommand(
       async () => {
         const {stdout} = await
-          execa.command(`yarn devphase account create`, { cwd: projectPath })
+          execa.command(`yarn devphase account create -a ${flags.alias}`, { cwd: projectPath })
         this.log(stdout);
       },
       `Creating Account`
     )
 
-    this.log("Phat Contract compiled successfully!");
+    this.log("Account created successfully!");
   }
 }

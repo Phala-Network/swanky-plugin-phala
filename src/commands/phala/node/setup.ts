@@ -16,7 +16,6 @@ export default class PhalaNodeSetup extends Command {
   };
 
   public async run(): Promise<void> {
-    // TODO: change when devphase implements command-utils like swanky
     const configExists = await fs.pathExists("devphase.config.ts");
     if (!configExists) {
       throw new Error("No 'devphase.config.ts' detected in current folder!");

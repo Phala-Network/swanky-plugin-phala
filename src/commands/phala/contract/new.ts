@@ -19,10 +19,7 @@ export default class PhalaContractNew extends Command {
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(PhalaContractNew)
 
-    this.log(`swanky phala contract new not implemented from /home/hashwarlock/Projects/Phala/Swanky/swanky-plugin-phala/src/commands/phala/contract/new.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
+    this.log(`swanky phala contract new not implemented`)
   }
 }
 

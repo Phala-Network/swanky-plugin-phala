@@ -1,7 +1,7 @@
 import {Command, Flags} from '@oclif/core'
 
 export default class PhalaCheck extends Command {
-  static description = 'Check the current configuration of the Phala dev environment.'
+  static description = 'Not Available'
 
   static examples = [
     '<%= config.bin %> <%= command.id %>',
@@ -19,10 +19,6 @@ export default class PhalaCheck extends Command {
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(PhalaCheck)
 
-    const name = flags.name ?? 'world'
-    this.log(`hello ${name} from /home/hashwarlock/Projects/Phala/Swanky/swanky-plugin-phala/src/commands/phala/check.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
+    this.log(`swanky phala check not implemented`)
   }
 }

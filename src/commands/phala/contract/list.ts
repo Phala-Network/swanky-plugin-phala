@@ -5,7 +5,7 @@ import path = require("node:path");
 import chalk = require("chalk");
 
 export default class PhalaContractList extends Command {
-  static description = 'Display contracts list'
+  static description = 'Display deployed contracts list'
 
   static examples = [
     '<%= config.bin %> <%= command.id %>',
