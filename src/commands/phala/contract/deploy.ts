@@ -61,10 +61,11 @@ export default class PhalaContractDeploy extends Command {
     const spinner = new Spinner(flags.verbose);
 
     this.log(`Deploy contract`)
+    // TODO: configurable deploy `-t ${flags.contractType} -n ${flags.network} -l ${flags.clusterId} -a ${flags.account} ${args.releaseFlag}`
     await spinner.runCommand(
       async () => {
         const {stdout} = await
-          execa.command(`yarn devphase contract deploy ${args.contractName} ${args.contractConstructor} -t ${flags.contractType} -n ${flags.network} -l ${flags.clusterId} -a ${flags.account} ${args.releaseFlag}`, { cwd: projectPath })
+          execa.command(`yarn devphase contract deploy ${args.contractName} ${args.contractConstructor}`, { cwd: projectPath })
         this.log(stdout);
       },
       `Deploying Phat Contract ${args.contractName}`
