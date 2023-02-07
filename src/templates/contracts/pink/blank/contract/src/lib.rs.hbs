@@ -1,0 +1,45 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+extern crate alloc;
+
+// pink_extension is short for Phala ink! extension
+use pink_extension as pink;
+
+#[pink::contract(env=PinkEnvironment)]
+mod {{contract_name_snake}} {
+    use super::pink;
+    /// Type alias for the contract's result type.
+    pub type Result<T> = core::result::Result<T, Error>;
+
+    /// Defines the storage of your contract.
+    /// All the fields will be encrypted and stored on-chain.
+    /// In this stateless example, we just add a useless field for demo.
+    #[ink(storage)]
+    pub struct {{contract_name_pascal}} {}
+
+    impl {{contract_name_pascal}} {
+        #[ink(constructor)]
+        pub fn default() -> Self {
+            Self {}
+        }
+    }
+
+    /// Unit tests in Rust are normally defined within such a `#[cfg(test)]`
+    /// module and test functions are marked with a `#[test]` attribute.
+    /// The below code is technically just normal Rust code.
+    #[cfg(test)]
+    mod tests {
+        /// Imports all the definitions from the outer scope so we can use them here.
+        use super::*;
+        /// Imports `ink_lang` so we can use `#[ink::test]`.
+        use ink_lang as ink;
+
+        /// We test a simple use case of our contract.
+        #[ink::test]
+        fn it_works() {
+            // when your contract is really deployed, the Phala Worker will do the HTTP requests
+            // mock is needed for local test
+            pink_extension_runtime::mock_ext::mock_all_ext();
+            let blank = {{contract_name_pascal}}::new();
+        }
+    }
+}
