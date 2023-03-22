@@ -120,7 +120,7 @@ export default class PhalaInit extends Command {
     // Change current directory to the project path
     process.chdir(projectPath);
     const runtimeContextPromise = await RuntimeContext.getSingleton();
-    await runtimeContextPromise.initContext(RunMode.Simple)
+    await runtimeContextPromise.initContext(RunMode.Simple);
 
     const initializer = new Initializer(runtimeContextPromise);
     await spinner.runCommand(

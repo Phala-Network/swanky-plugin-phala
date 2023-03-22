@@ -1,24 +1,31 @@
-import {Command, Flags} from '@oclif/core'
-
+import {Command} from '@oclif/core'
+import {RunMode, RuntimeContext} from '@devphase/service';
+import {checkCliDependencies, Spinner} from "@astar-network/swanky-core";
 export default class PhalaCheck extends Command {
-  static description = 'Not Available'
+  static description = 'Check project configuration'
 
   static examples = [
     '<%= config.bin %> <%= command.id %>',
   ]
 
-  static flags = {
-    // flag with a value (-n, --name=VALUE)
-    name: Flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: Flags.boolean({char: 'f'}),
-  }
-
-  static args = [{name: 'file'}]
-
   public async run(): Promise<void> {
-    const {args, flags} = await this.parse(PhalaCheck)
+    const runtimeContext = await RuntimeContext.getSingleton();
+    await runtimeContext.initContext(RunMode.Simple);
 
-    this.log(`swanky phala check not implemented`)
+    const spinner = new Spinner();
+
+    await spinner.runCommand(
+      () => runtimeContext.requestProjectDirectory(),
+      "Checking configuration file",
+    );
+
+    await spinner.runCommand(() => checkCliDependencies(spinner), "Checking dependencies");
+
+    await spinner.runCommand(
+      () => runtimeContext.requestStackBinaries(false),
+      "Checking Phala stack binaries",
+    );
+
+    this.log(`Dependencies check passed successfully!`)
   }
 }
