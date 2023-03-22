@@ -119,17 +119,17 @@ export default class PhalaInit extends Command {
 
     // Change current directory to the project path
     process.chdir(projectPath);
-    const runtimeContextPromise = await RuntimeContext.getSingleton();
-    await runtimeContextPromise.initContext(RunMode.Simple);
+    const runtimeContext = await RuntimeContext.getSingleton();
+    await runtimeContext.initContext(RunMode.Simple);
 
-    const initializer = new Initializer(runtimeContextPromise);
+    const initializer = new Initializer(runtimeContext);
     await spinner.runCommand(
       async () => await initializer.init(),
       "Copying devphase config files",
     );
 
     await spinner.runCommand(
-      async () => await runtimeContextPromise.requestStackBinaries(true),
+      async () => await runtimeContext.requestStackBinaries(true),
       "Installing phala node, pruntime and pherry binaries",
     );
 

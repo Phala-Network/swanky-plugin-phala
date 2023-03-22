@@ -1,38 +1,62 @@
 import {Command, Flags} from '@oclif/core'
-import execa from 'execa'
-import fs = require("fs-extra");
-import path = require("node:path")
+import chalk from 'chalk';
 import { Spinner } from "@astar-network/swanky-core";
+import {DevPhase, RunMode, RuntimeContext, StackSetupMode, StackSetupService} from "@devphase/service";
 
 export default class PhalaNodeSetup extends Command {
-  static description = 'Configuring the local testnet'
+  static description = 'Setup local testnet stack'
 
   static examples = [
-    '<%= config.bin %> <%= command.id %>',
+    '<%= config.bin %> <%= command.id %> -n [NETWORK_KEY] -m [SETUP_MODE]',
   ]
 
-  static flags = {
-    verbose: Flags.boolean({ char: "v" }),
+  public static flags = {
+    network: Flags.string({
+      summary: 'Network key',
+      char: 'n',
+      default: RuntimeContext.NETWORK_LOCAL
+    }),
+    setupMode: Flags.string({
+      summary: 'Stack setup mode',
+      char: 'm',
+      default: StackSetupMode.WithLogger.toString(),
+      options: Object.values(StackSetupMode).map(m => m.toString()),
+    })
   };
 
   public async run(): Promise<void> {
-    const configExists = await fs.pathExists("devphase.config.ts");
-    if (!configExists) {
-      throw new Error("No 'devphase.config.ts' detected in current folder!");
-    }
     const {flags} = await this.parse(PhalaNodeSetup)
     const spinner = new Spinner(flags.verbose);
+    const runtimeContext = await RuntimeContext.getSingleton();
+    await runtimeContext.initContext(RunMode.Simple);
 
-    this.log(`Setting up Phala Stack`)
+    this.log(`Setting up Phala local testnet stack`);
 
-    const projectPath = path.resolve()
+    const devPhase = await DevPhase.create(
+      runtimeContext,
+      flags.network
+    );
+
+    const stackSetupService = new StackSetupService(devPhase);
+
     await spinner.runCommand(
       async () => {
-        const {stdout} = await execa.command(`yarn devphase stack:setup`, { cwd: projectPath });
-        this.log(stdout);
+        const result =
+          await stackSetupService.setupStack({
+            ...runtimeContext.config.stack.setupOptions,
+            mode: Number(flags.setupMode),
+          });
+        this.log(chalk.green('Stack is ready'));
+        this.log(chalk.blue('Cluster Id'));
+        this.log(result.clusterId);
       },
-      "Configuring Phala local testnet..."
-    )
+      "Setting up local testnet stack"
+    );
+
+    await spinner.runCommand(
+      async () => await devPhase.cleanup(),
+      "Cleanup",
+    );
 
     this.log("Phala local testnet configured successfully!");
   }
