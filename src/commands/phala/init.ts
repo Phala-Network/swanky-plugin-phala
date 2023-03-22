@@ -1,17 +1,19 @@
-import {Command, Flags} from '@oclif/core'
+import {Args, Command, Flags} from '@oclif/core'
 import {
   checkCliDependencies,
-  copyTemplateFiles, installDeps,
+  copyTemplateFiles,
+  installDeps,
   processTemplates,
   Spinner,
 } from "@astar-network/swanky-core";
-import { paramCase, pascalCase, snakeCase } from "change-case";
+import {paramCase, pascalCase, snakeCase} from "change-case";
 import inquirer from 'inquirer';
 
-import { email, name, pickLanguage, pickTemplate } from "../../lib/prompts";
+import {email, name, pickLanguage, pickTemplate} from "../../lib/prompts";
 import execa from 'execa'
-import path = require("node:path")
-import { readdirSync } from "node:fs";
+import {readdirSync} from "node:fs";
+import {Initializer, RunMode, RuntimeContext} from '@devphase/service';
+import path = require("node:path");
 
 export function getTemplates(language = "pink") {
   const templatesPath = path.resolve(__dirname, "../..", "templates");
@@ -40,13 +42,13 @@ export default class PhalaInit extends Command {
     verbose: Flags.boolean({ char: "v" }),
   };
 
-  static args = [
-    {
+  static args = {
+    projectName: Args.string({
       name: "projectName",
       required: true,
       description: "directory name of new project",
-    },
-  ];
+    }),
+  };
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(PhalaInit);
@@ -114,13 +116,27 @@ export default class PhalaInit extends Command {
       "",
       false
     );
-    await spinner.runCommand(
-      async () => {
-        const {stdout} = await execa.command(`yarn devphase init`, { cwd: projectPath });
-        this.log(stdout);
-      },
-      "Setting up Phat Contract project...");
 
+    // Change current directory to the project path
+    process.chdir(projectPath);
+    const runtimeContextPromise = await RuntimeContext.getSingleton();
+    await runtimeContextPromise.initContext(RunMode.Simple)
+
+    const initializer = new Initializer(runtimeContextPromise);
+    await spinner.runCommand(
+      async () => await initializer.init(),
+      "Copying devphase config files",
+    );
+
+    await spinner.runCommand(
+      async () => await runtimeContextPromise.requestStackBinaries(true),
+      "Installing phala node, pruntime and pherry binaries",
+    );
+
+    await spinner.runCommand(
+      () => execa.command("rm -r ./tests/", { cwd: projectPath }),
+      ""
+    );
 
     this.log("Phat Contract project successfully initialised!");
   }
