@@ -14,14 +14,14 @@ export default class PhalaContractTest extends Command {
     force: Flags.boolean({char: 'f'}),
   }
 
-  static args = [{name: 'file'}]
+  // static args = [{name: 'file'}]
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(PhalaContractTest)
 
     this.log(`swanky phala contract test not implemented`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
-    }
+    // if (args.file && flags.force) {
+    //   this.log(`you input --force and --file: ${args.file}`)
+    // }
   }
 }

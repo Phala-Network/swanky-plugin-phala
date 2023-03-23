@@ -26,6 +26,6 @@ export default class PhalaCheck extends Command {
       "Checking Phala stack binaries",
     );
 
-    this.log(`Dependencies check passed successfully!`)
+    this.log(`😎 Dependencies check passed successfully! 😎`)
   }
 }

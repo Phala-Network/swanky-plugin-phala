@@ -138,6 +138,6 @@ export default class PhalaInit extends Command {
       ""
     );
 
-    this.log("Phat Contract project successfully initialised!");
+    this.log("😎 Phat Contract project successfully initialised! 😎");
   }
 }

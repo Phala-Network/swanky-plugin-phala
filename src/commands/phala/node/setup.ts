@@ -58,6 +58,6 @@ export default class PhalaNodeSetup extends Command {
       "Cleanup",
     );
 
-    this.log("Phala local testnet configured successfully!");
+    this.log("😎 Phala local testnet configured successfully! 😎");
   }
 }

@@ -72,6 +72,6 @@ export default class PhalaAccountCreate extends Command {
       ], columns, options);
     }
 
-    this.log("Account created successfully!");
+    this.log("😎 Account created successfully! 😎");
   }
 }
