@@ -5,7 +5,7 @@
     "module": "commonjs",
     "strict": true,
     "skipLibCheck": true,
-    "target": "es2020",
+    "target": "esnext",
     "noImplicitAny": false,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,

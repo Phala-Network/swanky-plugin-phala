@@ -7,7 +7,7 @@ use pink_extension as pink;
 #[pink::contract(env=PinkEnvironment)]
 mod {{contract_name_snake}} {
     use super::pink;
-    use ink_prelude::{format, string::String};
+    use ink::{format, string::String};
     use pink::{http_get, PinkEnvironment};
     use scale::{Decode, Encode};
     use serde::Deserialize;
