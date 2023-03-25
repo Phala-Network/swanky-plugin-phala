@@ -5,7 +5,12 @@
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [ "./*", ]
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]

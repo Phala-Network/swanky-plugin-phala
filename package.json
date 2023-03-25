@@ -1,7 +1,7 @@
 {
   "name": "@phala/swanky-plugin-phala",
   "description": "Phala plugin for Swanky CLI tool",
-  "version": "0.0.1-beta2",
+  "version": "0.0.2-beta1",
   "author": "Phala Network",
   "bin": {
     "phala": "./bin/run"
@@ -68,7 +68,7 @@
     ],
     "plugins": [
       "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
+      "@oclif/plugin-version"
     ],
     "topicSeparator": " ",
     "topics": {

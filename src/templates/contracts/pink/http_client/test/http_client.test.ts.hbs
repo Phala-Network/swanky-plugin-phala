@@ -1,9 +1,9 @@
 import { expect, use } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import {{contract_name_pascal}}Factory from "./typedContract/constructors/{{contract_name}}";
-import {{contract_name_pascal}} from "./typedContract/contracts/{{contract_name}}";
-import { ApiPromise, WsProvider, Keyring } from "@polkadot/api";
-import { KeyringPair } from "@polkadot/keyring/types";
+import * as PhalaSdk from '@phala/sdk';
+import type { KeyringPair } from '@polkadot/keyring/types';
+import { ContractType } from '@devphase/service';
+import {{contract_name_pascal}} from "@/typings/{{contract_name}}";
 
 use(chaiAsPromised);
 
@@ -13,10 +13,12 @@ const wsProvider = new WsProvider("ws://127.0.0.1:9944");
 const keyring = new Keyring({ type: "sr25519" });
 
 describe("{{contract_name}} test", () => {
-  let {{contract_name}}Factory: {{contract_name_pascal}}Factory;
+  let {{contract_name}}Factory: {{contract_name_pascal}}.Factory;
+  let {{contract_name}}Contract: {{contract_name_pascal}}.Contract;
   let api: ApiPromise;
   let deployer: KeyringPair;
-  
+  let certificate : PhalaSdk.CertificateData;
+
   let contract: {{contract_name_pascal}};
   const initialState = true;
 
