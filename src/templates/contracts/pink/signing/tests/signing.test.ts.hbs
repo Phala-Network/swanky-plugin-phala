@@ -10,7 +10,7 @@ describe("{{contract_name_pascal}} test", () => {
     let signer: KeyringPair;
     let certificate : PhalaSdk.CertificateData;
 
-    before(async function setup(): Promise<void> {
+    before(async function() {
         factory = await this.devPhase.getFactory(
             './contracts/{{contract_name}}/target/ink/{{contract_name}}.contract',
             { contractType: ContractType.InkCode }
@@ -29,8 +29,9 @@ describe("{{contract_name_pascal}} test", () => {
         before(async function() {
             contract = await factory.instantiate('new', []);
         });
+        const message = 'hi, how are ya?';
 
-        it('Should be able...', async function() {
+        it('Should be able derive keypair & sign/verify messages', async function() {
             const response = await contract.query.test(certificate, {}, message);
             console.log(response.output.toJSON());
         });

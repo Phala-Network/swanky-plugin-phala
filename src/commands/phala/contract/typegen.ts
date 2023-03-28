@@ -1,8 +1,5 @@
-import {Args, Command, Flags} from '@oclif/core'
-import execa from "execa";
-import fs = require("fs-extra");
-import path = require("node:path")
-import { Spinner } from "@astar-network/swanky-core";
+import {Args, Command} from '@oclif/core'
+import {Spinner} from "../../../lib/spinner";
 import {RunMode, RuntimeContext, TypeBinder} from "@devphase/service";
 
 export default class PhalaContractTypegen extends Command {

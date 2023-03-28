@@ -11,8 +11,8 @@ import {
   checkCliDependencies,
   copyTemplateFiles,
   processTemplates,
-  Spinner
-} from "@astar-network/swanky-core";
+} from '../../../lib/tasks';
+import {Spinner} from '../../../lib/spinner';
 import {ensureDir, pathExistsSync} from "fs-extra";
 
 

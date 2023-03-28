@@ -4,8 +4,8 @@ import {
   copyTemplateFiles,
   installDeps,
   processTemplates,
-  Spinner,
-} from "@astar-network/swanky-core";
+} from "../../lib/tasks";
+import {Spinner} from "../../lib/spinner";
 import {paramCase, pascalCase, snakeCase} from "change-case";
 import inquirer from 'inquirer';
 
@@ -131,11 +131,6 @@ export default class PhalaInit extends Command {
     await spinner.runCommand(
       async () => await runtimeContext.requestStackBinaries(true),
       "Installing phala node, pruntime and pherry binaries",
-    );
-
-    await spinner.runCommand(
-      () => execa.command("rm -r ./tests/", { cwd: projectPath }),
-      ""
     );
 
     this.log("😎 Phat Contract project successfully initialised! 😎");

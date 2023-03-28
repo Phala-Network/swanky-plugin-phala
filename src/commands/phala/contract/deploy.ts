@@ -1,5 +1,5 @@
 import {Command, Flags} from '@oclif/core'
-import {Spinner} from "@astar-network/swanky-core";
+import {Spinner} from '../../../lib/spinner';
 import {ContractManager, ContractType, RunMode, RuntimeContext} from "@devphase/service";
 import chalk from "chalk";
 

@@ -10,7 +10,7 @@ describe("{{contract_name_pascal}} test", () => {
     let signer: KeyringPair;
     let certificate : PhalaSdk.CertificateData;
 
-    before(async function setup(): Promise<void> {
+    before(async function() {
         factory = await this.devPhase.getFactory(
             './contracts/{{contract_name}}/target/ink/{{contract_name}}.contract',
             { contractType: ContractType.InkCode }
@@ -29,10 +29,18 @@ describe("{{contract_name_pascal}} test", () => {
         before(async function() {
             contract = await factory.instantiate('new', []);
         });
+        const address = '0xD0fE316B9f01A3b5fd6790F88C2D53739F80B464';
+        const hex_address = stringToHex(address);
 
-        it('Should be able...', async function() {
-            const response = await contract.query.test(certificate, {}, message);
-            console.log(response.output.toJSON());
+        it('Should be able to query balance of an account on Ethereum', async function() {
+            const response = await contract.query.getEthBalance(certificate, {}, hex_address);
+            const human = response.output.toHuman();
+            const primitive = response.output.toPrimitive();
+            const json = response.output.toJSON();
+
+            console.log(human.Ok.Ok);
+            console.log(primitive.ok.ok);
+            console.log(json.ok.ok);
         });
     });
 });

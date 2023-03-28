@@ -1,5 +1,5 @@
 import {Command, Flags} from '@oclif/core'
-import { Spinner } from "@astar-network/swanky-core";
+import {Spinner} from '../../../lib/spinner';
 import {ContractManager, RunMode, RuntimeContext} from "@devphase/service";
 
 export default class PhalaContractCompile extends Command {

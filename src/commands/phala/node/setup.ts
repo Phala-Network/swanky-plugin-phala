@@ -1,6 +1,6 @@
 import {Command, Flags} from '@oclif/core'
 import chalk from 'chalk';
-import { Spinner } from "@astar-network/swanky-core";
+import { Spinner } from "../../../lib/spinner";
 import {DevPhase, RunMode, RuntimeContext, StackSetupMode, StackSetupService} from "@devphase/service";
 
 export default class PhalaNodeSetup extends Command {

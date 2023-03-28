@@ -1,6 +1,7 @@
 import {Command} from '@oclif/core'
 import {RunMode, RuntimeContext} from '@devphase/service';
-import {checkCliDependencies, Spinner} from "@astar-network/swanky-core";
+import {checkCliDependencies} from '../../lib/tasks';
+import {Spinner} from '../../lib/spinner';
 export default class PhalaCheck extends Command {
   static description = 'Check project configuration'
 
