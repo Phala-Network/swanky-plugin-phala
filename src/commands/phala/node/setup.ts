@@ -34,7 +34,7 @@ export default class PhalaNodeSetup extends Command {
 
     const devPhase = await DevPhase.create(
       runtimeContext,
-      flags.network
+      null
     );
 
     const stackSetupService = new StackSetupService(devPhase);

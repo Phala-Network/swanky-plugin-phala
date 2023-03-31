@@ -1,0 +1,18 @@
+{
+  "stack": {
+    "version": "latest",
+    "blockTime": 6000
+  },
+  "testing": {
+    "blockTime": 100,
+    "stackSetupConfig": {
+      "setup": {
+        "timeout": 60000
+      },
+      "teardown": {
+        "timeout": 10000
+      }
+    },
+    "stackLogOutput": false
+  }
+}

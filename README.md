@@ -173,7 +173,7 @@ $ /Users/hashwarlock/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala/n
 [Init] Initiation
 [Initializer] Creating files
 [Initializer] accounts.json
-[Initializer] devphase.config.ts
+[Initializer] devphase.config.json
 [Initializer] Creating directories
 [Initializer] tests
 Done in 1.90s.
@@ -204,7 +204,7 @@ drwxr-xr-x    9 hashwarlock  staff   288B Jan 19 20:45 .git
 -rw-r--r--    1 hashwarlock  staff   3.8K Jan 19 20:45 .gitignore
 -rw-r--r--    1 hashwarlock  staff   143B Jan 19 20:46 accounts.json
 drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 contracts
--rw-r--r--    1 hashwarlock  staff   3.6K Jan 19 20:46 devphase.config.ts
+-rw-r--r--    1 hashwarlock  staff   3.6K Jan 19 20:46 devphase.config.json
 drwxr-xr-x  224 hashwarlock  staff   7.0K Jan 19 20:46 node_modules
 -rw-r--r--    1 hashwarlock  staff   287B Jan 19 20:45 package.json
 drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 patches
@@ -231,7 +231,7 @@ drwxr-xr-x    9 hashwarlock  staff   288B Jan 19 20:45 .git
 -rw-r--r--    1 hashwarlock  staff   3.8K Jan 19 20:45 .gitignore
 -rw-r--r--    1 hashwarlock  staff   143B Jan 19 20:46 accounts.json
 drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 contracts
--rw-r--r--    1 hashwarlock  staff   3.6K Jan 19 20:46 devphase.config.ts
+-rw-r--r--    1 hashwarlock  staff   3.6K Jan 19 20:46 devphase.config.json
 drwxr-xr-x  224 hashwarlock  staff   7.0K Jan 19 20:46 node_modules
 -rw-r--r--    1 hashwarlock  staff   287B Jan 19 20:45 package.json
 drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 patches
@@ -266,7 +266,7 @@ drwxr-xr-x   4 hashwarlock  staff   128B Jan 19 21:00 ..
 
 `swanky phala node start` will check if the following exists in the current directory or up:
 
-- `devphase.config.ts`
+- `devphase.config.json`
 - `stack/`
   - `phala-node`
   - `pruntime`
