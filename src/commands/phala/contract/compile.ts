@@ -34,18 +34,15 @@ export default class PhalaContractCompile extends Command {
     await runtimeContext.requestProjectDirectory();
 
     this.log(`Compile contract(s)`)
-    const spinner = new Spinner(flags.watch);
+    const spinner = new Spinner();
     const contractManager = new ContractManager(runtimeContext);
 
     await spinner.runCommand(
-      async () => {
-        const result = await contractManager.compile({
+      async () => await contractManager.compile({
           contractName: flags.contract,
           watch: flags.watch,
           release: flags.release,
-        });
-        this.log(`${result}`);
-      },
+        }),
       `Compiling Phat Contract ${flags.contract}`
     );
 

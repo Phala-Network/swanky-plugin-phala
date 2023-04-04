@@ -79,7 +79,7 @@ export default class PhalaContractDeploy extends Command {
         this.log('Contract Id:', instance.contractId);
         this.log('Cluster Id: ', instance.clusterId);
       },
-      `Deploying contract ${flags.contract}`,
+      `Deploying contract ${flags.contract} `,
     );
 
     this.log("😎 Phat Contract deployed successfully! 😎");

@@ -40,11 +40,9 @@ export default class PhalaAccountCreate extends Command {
     if (!flags.passphrase && !flags['no-passphrase']) {
       const passphrase = await inquirer.prompt([password("")]);
       if (!passphrase.password) {
-        console.log('hi')
         flags["no-passphrase"] = true;
         flags.passphrase = passphrase.password;
       } else {
-        console.log('bye')
         flags.passphrase = passphrase.password;
       }
     }

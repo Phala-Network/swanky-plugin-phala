@@ -1,18 +1,87 @@
 {
   "stack": {
+    "blockTime": 500,
     "version": "latest",
-    "blockTime": 6000
+    "node": {
+      "port": 39944,
+      "binary": "{{directories.stacks}}/{{stack.version}}/phala-node",
+      "workingDir": "{{directories.stacks}}/.data/node",
+      "envs": {},
+      "args": {
+        "--dev": true,
+        "--port": 33333,
+        "--rpc-port": 39933,
+        "--ws-external": true,
+        "--unsafe-ws-external": true,
+        "--rpc-methods": "Unsafe",
+        "--block-millisecs": "{{stack.blockTime}}",
+        "--ws-port": "{{stack.node.port}}"
+      },
+      "timeout": 10000
+    },
+    "pruntime": {
+      "port": 38000,
+      "binary": "{{directories.stacks}}/{{stack.version}}/pruntime",
+      "workingDir": "{{directories.stacks}}/.data/pruntime",
+      "envs": {
+        "RUST_LOG": "debug,runtime=trace"
+      },
+      "args": {
+        "--allow-cors": true,
+        "--cores": 0,
+        "--port": "{{stack.pruntime.port}}",
+        "--address": "0.0.0.0"
+      },
+      "timeout": 2000
+    },
+    "pherry": {
+      "gkMnemonic": "//Ferdie",
+      "binary": "{{directories.stacks}}/{{stack.version}}/pherry",
+      "workingDir": "{{directories.stacks}}/.data/pherry",
+      "envs": {},
+      "args": {
+        "--no-wait": true,
+        "--mnemonic": "{{stack.pherry.gkMnemonic}}",
+        "--inject-key": "0000000000000000000000000000000000000000000000000000000000000001",
+        "--substrate-ws-endpoint": "ws://localhost:{{stack.node.port}}",
+        "--pruntime-endpoint": "http://localhost:{{stack.pruntime.port}}",
+        "--dev-wait-block-ms": "{{stack.blockTime}}",
+        "--attestation-provider": "none"
+      },
+      "timeout": 5000
+    }
+  },
+  "networks": {
+    "local": {
+      "nodeUrl": "ws://localhost:{{stack.node.port}}",
+      "workerUrl": "http://localhost:{{stack.pruntime.port}}",
+      "blockTime": 500
+    }
   },
   "testing": {
-    "blockTime": 100,
-    "stackSetupConfig": {
+    "mocha": {},
+    "spawnStack": true,
+    "stackLogOutput": true,
+    "envSetup": {
       "setup": {
-        "timeout": 60000
+        "custom": null,
+        "timeout": 120000
       },
       "teardown": {
+        "custom": null,
         "timeout": 10000
       }
+    }
+  },
+  "accountsConfig": {
+    "keyrings": {
+      "alice": "//Alice",
+      "bob": "//Bob",
+      "charlie": "//Charlie",
+      "dave": "//Dave",
+      "eve": "//Eve",
+      "ferdie": "//Ferdie"
     },
-    "stackLogOutput": false
+    "suAccount": "alice"
   }
 }
