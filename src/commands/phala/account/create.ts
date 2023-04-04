@@ -2,6 +2,8 @@ import {AccountManager, RunMode, RuntimeContext} from '@devphase/service';
 import { Flags, ux, Command } from '@oclif/core';
 import { table } from '@oclif/core/lib/cli-ux/styled/table';
 import chalk from 'chalk';
+import inquirer from 'inquirer';
+import {password, pickLanguage} from "../../../lib/prompts";
 
 export default class PhalaAccountCreate extends Command {
   static description = "Create a dev account";
@@ -35,6 +37,17 @@ export default class PhalaAccountCreate extends Command {
 
     const accountManager = new AccountManager(runtimeContext);
 
+    if (!flags.passphrase && !flags['no-passphrase']) {
+      const passphrase = await inquirer.prompt([password("")]);
+      if (!passphrase.password) {
+        console.log('hi')
+        flags["no-passphrase"] = true;
+        flags.passphrase = passphrase.password;
+      } else {
+        console.log('bye')
+        flags.passphrase = passphrase.password;
+      }
+    }
     const account = await accountManager.createAccount(
       {
         alias: flags.alias,
@@ -44,33 +57,30 @@ export default class PhalaAccountCreate extends Command {
       runtimeContext.config.general.ss58Format
     );
 
-    // display
-    if (!flags.json) {
-      this.log(chalk.green('Account created\n'));
+    this.log(chalk.green('Account created\n'));
 
-      const columns : table.Columns<any> = {
-        alias: {},
-        address: {},
-        isLocked: {},
-      };
-      const options : table.Options = {
-        columns: flags.columns,
-        sort: flags.sort,
-        filter: flags.filter,
-        csv: flags.csv,
-        extended: flags.extended,
-        'no-truncate': flags['no-truncate'],
-        'no-header': flags['no-header'],
-      };
+    const columns : table.Columns<any> = {
+      alias: {},
+      address: {},
+      isLocked: {},
+    };
+    const options : table.Options = {
+      columns: flags.columns,
+      sort: flags.sort,
+      filter: flags.filter,
+      csv: flags.csv,
+      extended: flags.extended,
+      'no-truncate': flags['no-truncate'],
+      'no-header': flags['no-header'],
+    };
 
-      ux.table([
-        {
-          alias: account.alias,
-          address: account.keyring.address,
-          protected: account.keyring.isLocked,
-        }
-      ], columns, options);
-    }
+    ux.table([
+      {
+        alias: account.alias,
+        address: account.keyring.address,
+        protected: account.keyring.isLocked,
+      }
+    ], columns, options);
 
     this.log("😎 Account created successfully! 😎");
   }

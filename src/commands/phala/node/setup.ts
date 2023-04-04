@@ -26,9 +26,10 @@ export default class PhalaNodeSetup extends Command {
 
   public async run(): Promise<void> {
     const {flags} = await this.parse(PhalaNodeSetup)
-    const spinner = new Spinner(flags.verbose);
+    const spinner = new Spinner();
     const runtimeContext = await RuntimeContext.getSingleton();
     await runtimeContext.initContext(RunMode.Simple);
+    await runtimeContext.requestProjectDirectory();
 
     this.log(`Setting up Phala local testnet stack`);
 
