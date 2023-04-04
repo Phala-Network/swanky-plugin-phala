@@ -48,6 +48,7 @@ export default class PhalaContractNew extends Command {
   };
 
   public async run(): Promise<void> {
+    const {args} = await this.parse(PhalaContractNew);
     const runtimeContext = await RuntimeContext.getSingleton();
     await runtimeContext.initContext(RunMode.Simple);
     await runtimeContext.requestProjectDirectory();
@@ -61,7 +62,7 @@ export default class PhalaContractNew extends Command {
 
     const questions = [
       pickTemplate(templates.contractTemplatesList),
-      name("contract", (ans) => ans.contractTemplate, "What should we name your contract?"),
+      name("contract", () => args.contractName, "What should we name your contract?"),
       name(
         "author",
         () => execa.commandSync("git config --get user.name").stdout,

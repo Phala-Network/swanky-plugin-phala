@@ -2,10 +2,10 @@ import {Command, Flags} from '@oclif/core'
 import {RunMode, RuntimeContext, StackSetupMode, Tester} from '@devphase/service';
 
 export default class PhalaContractTest extends Command {
-  static description = 'Run tests for specified contract(s)'
+  static description = '[Unstable] Run tests for specified contract(s)'
 
   static examples = [
-    '<%= config.bin %> <%= command.id %> -t [TEST_SUITE_NAME] -n [NETWORK] -e [EXTERNAL_STACK] -m [STACK_SETUP_MODE] -',
+    '<%= config.bin %> <%= command.id %> -t [TEST_SUITE_NAME] -n [NETWORK] -e [EXTERNAL_STACK] -m [STACK_SETUP_MODE]',
   ]
 
   public static flags = {
