@@ -4,6 +4,10 @@ import path from 'node:path';
 import globby from 'globby';
 import handlebars from 'handlebars';
 import { Spinner } from './spinner';
+import fs from "fs";
+import chalk from "chalk";
+import {validate} from "@phala/ink-validator";
+import {RuntimeContext} from "@devphase/service";
 
 export async function checkCliDependencies(spinner: Spinner) {
     const dependencyList = [
@@ -90,5 +94,33 @@ export async function installDeps(projectPath: string) {
         console.log('\n\t >>Yarn not detected, using NPM');
     } finally {
         await execa.command(installCommand, { cwd: projectPath });
+    }
+}
+
+export async function validateCompiledWasm(runtimeContext: RuntimeContext, contractName: string) {
+    let artifactPath = contractName;
+    const isContractName = /^[a-z0-9_]+$/i.test(contractName);
+
+    if (isContractName) {
+        artifactPath = path.join(
+            runtimeContext.paths.artifacts,
+            artifactPath,
+            `${artifactPath}.wasm`
+        );
+    }
+    console.log(chalk.yellow(`Validating compiled WASM of ${contractName} contract...`));
+    if (!fs.existsSync(artifactPath)) {
+        console.error(chalk.red('[ERROR] Contract artifact file not found'));
+        return false;
+    } else {
+        const wasmBin = fs.readFileSync(artifactPath);
+        const result = validate(wasmBin, false);
+        if (typeof result === 'string') {
+            console.error(chalk.red("[ERROR] Invalid contract:", result));
+            return false;
+        } else {
+            console.log(chalk.green(`${contractName}.wasm validated successfully!`));
+            return true;
+        }
     }
 }

@@ -550,6 +550,11 @@
   dependencies:
     "@octokit/openapi-types" "^12.11.0"
 
+"@phala/ink-validator@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@phala/ink-validator/-/ink-validator-0.1.0.tgz#c8e550bc366c60567e935c88eafedbe8c6af313a"
+  integrity sha512-COEsHwHdPFnJQQFgoBFj/HPpATBz19cYb3QHd8YRfvJChCKGjyKeuepjX+O7+BHPe4wGIaaIPQoQovhvwIAltg==
+
 "@phala/sdk@^0.4.0-nightly-20230330-1":
   version "0.4.0-nightly-20230330-1"
   resolved "https://registry.yarnpkg.com/@phala/sdk/-/sdk-0.4.0-nightly-20230330-1.tgz#bdcb6dc8642a10426eb08b13cec18b03c23ef7b0"

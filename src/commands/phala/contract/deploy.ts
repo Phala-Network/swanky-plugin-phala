@@ -2,6 +2,7 @@ import {Command, Flags} from '@oclif/core'
 import {Spinner} from '../../../lib/spinner';
 import {ContractManager, ContractType, RunMode, RuntimeContext} from "@devphase/service";
 import chalk from "chalk";
+import {validateCompiledWasm} from "../../../lib/tasks";
 
 export default class PhalaContractDeploy extends Command {
   static description = 'Deploy contract'
@@ -62,26 +63,31 @@ export default class PhalaContractDeploy extends Command {
 
     const contractManager = new ContractManager(runtimeContext);
 
-    await spinner.runCommand(
-      async () => {
-        const instance = await contractManager.deploy(
-          flags.contract,
-          flags.constructor,
-          flags.params,
-          {
-            contractType: <any>flags.type,
-            clusterId: flags.cluster,
-            network: flags.network,
-            account: flags.account
-          }
-        );
-        this.log(chalk.green('Contract deployed'));
-        this.log('Contract Id:', instance.contractId);
-        this.log('Cluster Id: ', instance.clusterId);
-      },
-      `Deploying contract ${flags.contract} `,
-    );
+    // Validate compiled wasm
+    const result = await validateCompiledWasm(runtimeContext, flags.contract);
 
-    this.log("😎 Phat Contract deployed successfully! 😎");
+    if (result) {
+      await spinner.runCommand(
+        async () => {
+          const instance = await contractManager.deploy(
+            flags.contract,
+            flags.constructor,
+            flags.params,
+            {
+              contractType: <any>flags.type,
+              clusterId: flags.cluster,
+              network: flags.network,
+              account: flags.account
+            }
+          );
+          this.log(chalk.green('Contract deployed'));
+          this.log('Contract Id:', instance.contractId);
+          this.log('Cluster Id: ', instance.clusterId);
+        },
+        `Deploying contract ${flags.contract} `,
+      );
+
+      this.log("😎 Phat Contract deployed successfully! 😎");
+    }
   }
 }
