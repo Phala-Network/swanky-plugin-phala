@@ -26,7 +26,6 @@ export default class PhalaContractValidate extends Command {
     await runtimeContext.initContext(RunMode.Simple);
     await runtimeContext.requestProjectDirectory();
 
-    this.log(chalk.yellow(`Validating compiled WASM of ${flags.contract} contract...`));
     const result = await validateCompiledWasm(runtimeContext, flags.contract);
     if (result) this.log("😎 Phat Contract validated successfully! 😎");
   }

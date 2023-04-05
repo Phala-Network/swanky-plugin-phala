@@ -328,6 +328,19 @@ Compile contract(s)
 😎 Phat Contract compiled successfully! 😎
 ```
 
+### Validate Your Compiled WASM Contract
+Sometimes there are difficult to find errors that lie within a succesfully compiled wasm blob. The command `swanky phala contract validate -c [CONTRACT_NAME]` will do a preliminary check to verify if the compiled contract is valid for deployment.
+
+```bash
+└─[$]> swanky phala contract validate -c phat_hello
+Validating compiled WASM of phat_hello contract...
+[ERROR] Invalid contract: validation of new code failed: sign extension operations support is not enabled (at offset 0x1a36b)
+└─[$]> swanky phala contract validate -c flipper
+Validating compiled WASM of flipper contract...
+flipper.wasm validated successfully!
+😎 Phat Contract validated successfully! 😎
+```
+
 ### Generate Types for Contract
 
 If you have compiled your contract already, the types will be auto-generated at the end of a successful compilation. In the case that the types were not generated for the contract, execute the `swanky phala contract typegen [CONTRACT_NAME]`.
