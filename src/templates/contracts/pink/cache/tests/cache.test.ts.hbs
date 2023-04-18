@@ -25,14 +25,17 @@ describe("{{contract_name_pascal}} test", () => {
         });
     });
 
-    describe('new constructor', () => {
+    describe('default constructor', () => {
         before(async function() {
-            contract = await factory.instantiate('new', []);
+            contract = await factory.instantiate('default', []);
         });
+        const message = 'hi, how are ya?';
 
-        it('Should be able...', async function() {
-            const response = await contract.query.test(certificate, {}, message);
+        it('Should be able to add and get cache', async function() {
+            const response = await contract.query.setKeyValue(certificate, {}, message);
             console.log(response.output.toJSON());
+            const getResponse = await contract.query.getKeyValue(certificate, {});
+            console.log(getResponse.output.toJSON());
         });
     });
 });
