@@ -24,27 +24,28 @@ mod {{contract_name_snake}} {
     pub struct {{contract_name_pascal}} {}
 
     impl {{contract_name_pascal}} {
-    #[ink(constructor)]
-    pub fn default() -> Self {
-        Self {}
-    }
+        #[ink(constructor)]
+        pub fn default() -> Self {
+            Self {}
+        }
 
-    #[ink(message)]
-    pub fn get_key_value(&self) -> Option<Vec<u8>> {
-        ext().cache_get(b"key")
-    }
+        #[ink(message)]
+        pub fn get_key_value(&self) -> Option<Vec<u8>> {
+            ext().cache_get(b"key")
+        }
 
-    #[ink(message)]
-    pub fn set_key_value(&self, value: Vec<u8>) -> Result<()> {
-        ext().cache_set(b"key", &value).or(Err(Error::KeyValueNotSet))
-    }
+        #[ink(message)]
+        pub fn set_key_value(&self, value: Vec<u8>) -> Result<()> {
+            ext().cache_set(b"key", &value).or(Err(Error::KeyValueNotSet))
+        }
 
-    #[ink(message)]
-    pub fn test(&self) {
-        assert!(ext().cache_set(b"key", b"value").is_ok());
-        assert_eq!(ext().cache_get(b"key"), Some(b"value".to_vec()));
-        assert_eq!(ext().cache_remove(b"key"), Some(b"value".to_vec()));
-        assert_eq!(ext().cache_get(b"key"), None);
+        #[ink(message)]
+        pub fn test(&self) {
+            assert!(ext().cache_set(b"key", b"value").is_ok());
+            assert_eq!(ext().cache_get(b"key"), Some(b"value".to_vec()));
+            assert_eq!(ext().cache_remove(b"key"), Some(b"value".to_vec()));
+            assert_eq!(ext().cache_get(b"key"), None);
+        }
     }
 
     #[cfg(test)]
