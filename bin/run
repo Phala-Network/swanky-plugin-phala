@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 
-const oclif = require('@oclif/core')
+"use strict";
+(async () => {
+    const TsNode = require('ts-node');
+    const tsNodeService = TsNode.register({
+        transpileOnly: false,
+    });
 
-oclif.run().then(require('@oclif/core/flush')).catch(require('@oclif/core/handle'))
+    const oclif = require('@oclif/core');
+    oclif.run()
+        .then(require('@oclif/core/flush'))
+        .catch(require('@oclif/core/handle'));
+})();
