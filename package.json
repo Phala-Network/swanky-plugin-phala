@@ -1,7 +1,7 @@
 {
   "name": "@phala/swanky-plugin-phala",
   "description": "Phala plugin for Swanky CLI tool",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "author": "Phala Network",
   "bin": {
     "phala": "./bin/run"
@@ -87,6 +87,9 @@
       "phala:node": {
         "description": "Download binaries to start local testnet and configure for Phat Contract development."
       }
+    },
+    "hooks": {
+      "command_not_found": "./dist/hooks/command_not_found/command_not_found"
     }
   },
   "scripts": {
