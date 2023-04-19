@@ -1,13 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "esnext",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",
-    "noImplicitAny": false
+
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [ "./*", ]
+    }
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules"],
-  "files": ["./swanky.config.ts"]
+  "include": ["**/*.ts", "devphase.config.json"],
+  "exclude": ["node_modules"]
 }

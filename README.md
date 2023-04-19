@@ -157,10 +157,10 @@ After you select a name, you’ll be asked for your `git` username (default is `
 An expected final output will display when the template files and project directory is created.
 
 ```bash
-? Which contract template should we use? pink
-? Which contract template should we use? http_client
-? What should we name your contract? http_client
-? What is your name? HashWarlock
+? Which contract language should we use? pink
+? Which contract template should we use? phat_hello
+? What should we name your contract? phat_hello
+? What is your name? hashwarlock
 ? What is your email? 
 ✔ Checking dependencies OK
 Initializing
@@ -168,17 +168,21 @@ Initializing
 ✔ Processing templates OK
 ✔ Initializing git OK
 ✔ Installing dependencies OK
-⠼ Downloading Phala binaries for local testnet...yarn run v1.22.18
-$ /Users/hashwarlock/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala/node_modules/.bin/devphase init
-[Init] Initiation
+⠋ Copying devphase config files[Initializer] Creating directories
 [Initializer] Creating files
-[Initializer] accounts.json
 [Initializer] devphase.config.ts
-[Initializer] Creating directories
-[Initializer] tests
-Done in 1.90s.
-✔ Downloading Phala binaries for local testnet... OK
-Phat Contract project successfully initialised!
+[Initializer] accounts.json
+[Initializer] scripts
+[Initializer] Creating sample contract
+[ContractManager] Contract created in:
+[ContractManager] /home/hashwarlock/Projects/Phala/Swanky/demo/swanky-plugin-phala/test-swanky-phala/contracts/flipper
+✔ Copying devphase config files OK
+⠋ Installing phala node, pruntime and pherry binaries[StackBinaryDownloader] Preparing Phala stack release
+[StackBinaryDownloader] Creating stack directory
+  ✔ Checking releases directory
+  ✔ Checking target release binaries
+✔ Installing phala node, pruntime and pherry binaries OK
+😎 Phat Contract project successfully initialised! 😎
 ```
 
 Execute `ls` to list the new project directory called `test-swanky-phala` in the current working directory.
@@ -195,78 +199,49 @@ drwxr-xr-x  15 hashwarlock  staff   480B Jan 19 20:46 test-swanky-phala
 
 ```bash
 cd test-swanky-phala
-ls
-total 240
-drwxr-xr-x   15 hashwarlock  staff   480B Jan 19 20:46 .
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 ..
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:46 .devphase
-drwxr-xr-x    9 hashwarlock  staff   288B Jan 19 20:45 .git
--rw-r--r--    1 hashwarlock  staff   3.8K Jan 19 20:45 .gitignore
--rw-r--r--    1 hashwarlock  staff   143B Jan 19 20:46 accounts.json
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 contracts
--rw-r--r--    1 hashwarlock  staff   3.6K Jan 19 20:46 devphase.config.ts
-drwxr-xr-x  224 hashwarlock  staff   7.0K Jan 19 20:46 node_modules
--rw-r--r--    1 hashwarlock  staff   287B Jan 19 20:45 package.json
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 patches
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 test
-drwxr-xr-x    2 hashwarlock  staff    64B Jan 19 20:46 tests
--rw-r--r--    1 hashwarlock  staff   271B Jan 19 20:45 tsconfig.json
--rw-r--r--    1 hashwarlock  staff    97K Jan 19 20:46 yarn.lock
+└─[$]> ls
+total 152
+drwxr-xr-x. 1 hashwarlock hashwarlock    254 Apr  4 16:27 .
+drwxr-xr-x. 1 hashwarlock hashwarlock    468 Apr  4 16:27 ..
+-rw-r--r--. 1 hashwarlock hashwarlock    143 Apr  4 16:27 accounts.json
+drwxr-xr-x. 1 hashwarlock hashwarlock     34 Apr  4 16:27 contracts
+drwxr-xr-x. 1 hashwarlock hashwarlock     26 Apr  4 16:27 .devphase
+-rw-r--r--. 1 hashwarlock hashwarlock   4582 Apr  4 16:27 devphase.config.ts
+drwxr-xr-x. 1 hashwarlock hashwarlock     98 Apr  4 16:26 .git
+-rw-r--r--. 1 hashwarlock hashwarlock   3595 Apr  4 16:26 .gitignore
+drwxr-xr-x. 1 hashwarlock hashwarlock   6116 Apr  4 16:27 node_modules
+-rw-r--r--. 1 hashwarlock hashwarlock    255 Apr  4 16:26 package.json
+drwxr-xr-x. 1 hashwarlock hashwarlock     18 Apr  4 16:27 scripts
+drwxr-xr-x. 1 hashwarlock hashwarlock     36 Apr  4 16:27 stacks
+drwxr-xr-x. 1 hashwarlock hashwarlock     20 Apr  4 16:26 tests
+-rw-r--r--. 1 hashwarlock hashwarlock    520 Apr  4 16:26 tsconfig.json
+-rw-r--r--. 1 hashwarlock hashwarlock 130190 Apr  4 16:27 yarn.lock
 ```
-
-### Download Phala Binaries
-
-> **Note:** Currently there are no separate commands to download/start/stop the binaries (`phala-node`, `pherry`, `pruntime`) but this will be available soon. For now, `swanky phala node start` will download the binaries and auto-start the local testnet.
->
-
 Here is an example of how the directory structure looks like:
 
 ```bash
-➜  test-swanky-phala git:(master) ✗ ls                                                                                                                                          ~/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala
-total 240
-drwxr-xr-x   16 hashwarlock  staff   512B Jan 19 21:00 .
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 ..
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:46 .devphase
-drwxr-xr-x    9 hashwarlock  staff   288B Jan 19 20:45 .git
--rw-r--r--    1 hashwarlock  staff   3.8K Jan 19 20:45 .gitignore
--rw-r--r--    1 hashwarlock  staff   143B Jan 19 20:46 accounts.json
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 contracts
--rw-r--r--    1 hashwarlock  staff   3.6K Jan 19 20:46 devphase.config.ts
-drwxr-xr-x  224 hashwarlock  staff   7.0K Jan 19 20:46 node_modules
--rw-r--r--    1 hashwarlock  staff   287B Jan 19 20:45 package.json
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 patches
-drwxr-xr-x    4 hashwarlock  staff   128B Jan 19 21:00 stacks
-drwxr-xr-x    3 hashwarlock  staff    96B Jan 19 20:45 test
-drwxr-xr-x    2 hashwarlock  staff    64B Jan 19 20:46 tests
--rw-r--r--    1 hashwarlock  staff   271B Jan 19 20:45 tsconfig.json
--rw-r--r--    1 hashwarlock  staff    97K Jan 19 20:46 yarn.lock
-➜  test-swanky-phala git:(master) ✗ cd stacks                                                                                                                                   ~/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala
-➜  stacks git:(master) ✗ ls                                                                                                                                              ~/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala/stacks
-total 0
-drwxr-xr-x   4 hashwarlock  staff   128B Jan 19 21:00 .
-drwxr-xr-x  16 hashwarlock  staff   512B Jan 19 21:00 ..
-drwxr-xr-x   3 hashwarlock  staff    96B Jan 19 21:00 .data
-drwxr-xr-x  10 hashwarlock  staff   320B Jan 19 21:00 nightly-2023-01-20
-➜  stacks git:(master) ✗ cd nightly-2023-01-20                                                                                                                           ~/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala/stacks
-➜  nightly-2023-01-20 git:(master) ✗ ls                                                                                                               ~/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala/stacks/nightly-2023-01-20
-total 264888
-drwxr-xr-x  10 hashwarlock  staff   320B Jan 19 21:00 .
-drwxr-xr-x   4 hashwarlock  staff   128B Jan 19 21:00 ..
--rw-r--r--   1 hashwarlock  staff    17K Jan 19 21:00 log_server.contract
--rw-r--r--   1 hashwarlock  staff   200K Jan 19 21:00 log_server.sidevm.wasm
--rwxr-xr-x   1 hashwarlock  staff    84M Jan 19 21:00 phala-node
--rwxr-xr-x   1 hashwarlock  staff    17M Jan 19 21:00 pherry
--rwxr-xr-x   1 hashwarlock  staff    28M Jan 19 21:00 pruntime
--rw-r--r--   1 hashwarlock  staff    12K Jan 19 21:00 sidevm_deployer.contract
--rw-r--r--   1 hashwarlock  staff    36K Jan 19 21:00 system.contract
--rw-r--r--   1 hashwarlock  staff   8.1K Jan 19 21:00 tokenomic.contract
+└─[$]> cd stacks
+└─[$]> cd nightly-2023-04-04 
+└─[$]> ls
+total 116256
+drwxr-xr-x. 1 hashwarlock hashwarlock      272 Apr  4 16:27 .
+drwxr-xr-x. 1 hashwarlock hashwarlock       36 Apr  4 16:27 ..
+-rw-r--r--. 1 hashwarlock hashwarlock  6411768 Apr  4 16:27 libpink.so.1.0
+-rw-r--r--. 1 hashwarlock hashwarlock    59475 Apr  4 16:27 log_server.contract
+-rw-r--r--. 1 hashwarlock hashwarlock  2278251 Apr  4 16:27 log_server.sidevm.wasm
+-rwxr-xr-x. 1 hashwarlock hashwarlock 68365760 Apr  4 16:27 phala-node
+-rwxr-xr-x. 1 hashwarlock hashwarlock 14814056 Apr  4 16:27 pherry
+-rwxr-xr-x. 1 hashwarlock hashwarlock 26937712 Apr  4 16:27 pruntime
+-rw-r--r--. 1 hashwarlock hashwarlock    41568 Apr  4 16:27 sidevm_deployer.contract
+-rw-r--r--. 1 hashwarlock hashwarlock    79326 Apr  4 16:27 system.contract
+-rw-r--r--. 1 hashwarlock hashwarlock    39543 Apr  4 16:27 tokenomic.contract
 ```
 
 ### Start a Phala Local Testnet
 
 `swanky phala node start` will check if the following exists in the current directory or up:
 
-- `devphase.config.ts`
+- `devphase.config.json`
 - `stack/`
   - `phala-node`
   - `pruntime`
@@ -276,26 +251,15 @@ Once verified file are downloaded and there is not an instance running currently
 
 ```bash
 swanky phala node start
-$ /Users/hashwarlock/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala/node_modules/.bin/devphase stack
-    [Stack] Starting
-    [StackBinaryDownloader] Creating stack directory
-    [StackBinaryDownloader] Downloading stack binaries nightly-2023-01-20
-    [StackBinaryDownloader] log_server.contract
-    [StackBinaryDownloader] log_server.sidevm.wasm
-    [StackBinaryDownloader] phala-node
-    [StackBinaryDownloader] pherry
-    [StackBinaryDownloader] pruntime
-    [StackBinaryDownloader] sidevm_deployer.contract
-    [StackBinaryDownloader] system.contract
-    [StackBinaryDownloader] tokenomic.contract
-    [StackManager] Waiting for phala-node to start with 10.0 s timeout.
-    [phala-node]
-		[pruntime]
-		[pherry]
+Starting local tesnet stack
+[StackBinaryDownloader] Preparing Phala stack release
+  ✔ Checking releases directory
+  ✔ Checking target release binaries
+[StackManager] Starting stack
+  ✔ Start node component
+  ✔ Start pRuntime component
+  ✔ Start pherry component
 ```
-
-> ********Note:******** Currently the local testnet will start, but the CLI will not output the logs of `phala-node`, `pruntime` and `pherry`. This will be fixed in the future.
->
 
 ### Configure the Running Local Testnet for Phat Contract Deployment
 
@@ -303,7 +267,7 @@ A Phala local testnet needs the following for Phat Contracts to be deployed and 
 
 - Register the Workers and setup their endpoints;
 - Register the Gatekeepers;
-- Create Cluster 0x0 with `Alice` as the owner and the System contract above;
+- Create Cluster 0x0 with`Alice`as the owner and the System contract above;
 - Register two Drivers to the System contract
   - the log server printing all the Phat contracts' log;
   - the SideVM deployer controlling which contracts can start the SideVM;
@@ -312,7 +276,28 @@ This is accomplished by executing `swanky phala node setup`.
 
 ```bash
 swanky phala node setup
-TODO add output from successful setup
+Setting up Phala local testnet stack
+⠋ Setting up local testnet stack[StackSetupService] Starting stack setup with default version
+  ✔ Fetch worker info
+  ✔ Load system contracts
+  ↓ Register worker [skipped]
+  ↓ Register gatekeeper [skipped]
+  ↓ Upload Pink system code [skipped]
+  ✔ Verify cluster
+  ↓ Create cluster [skipped]
+  ✔ Wait for cluster to be ready
+  ✔ Create system contract API
+  ✔ Deploy tokenomic driver
+  ✔ Deploy SideVM driver
+  ✔ Calculate logger server contract ID
+  ✔ Prepare chain for logger server
+  ✔ Deploy logger server
+Stack is ready
+Cluster Id
+0x0000000000000000000000000000000000000000000000000000000000000000
+✔ Setting up local testnet stack OK
+✔ Cleanup OK
+😎 Phala local testnet configured successfully! 😎
 ```
 
 ### Compile Your Contract
@@ -328,30 +313,32 @@ Let’s begin the process of deploying the Phat Contract, but first the PC must 
 > ************Note:************ Follow these [installation steps](https://wiki.phala.network/en-us/build/stateless/setup/) before continuing to ensure you can compile your Phat Contract.
 >
 
-We can compile the PC with `swanky phala contract compile [CONTRACT_NAME]` and will look like the follow:
+We can compile the PC with `swanky phala contract compile -c [CONTRACT_NAME]` and will look like the follow:
 
 ```bash
-swanky phala contract compile http_client
+swanky phala contract compile -c phat_hello
 Compile contract(s)
-⠏ Compiling Phat Contract http_clientyarn run v1.22.18
-Original wasm size: 39.7K, Optimized: 15.8K
+⠋ Compiling Phat Contract phat_hello[MultiContractExecutor] Criteria: phat_hello
+[MultiContractExecutor] Matched contracts:
+[MultiContractExecutor] phat_hello
+[MultiContractExecutor] 
+  ❯ phat_hello
+  ✔ phat_hello
+✔ Compiling Phat Contract phat_hello OK
+😎 Phat Contract compiled successfully! 😎
+```
 
-The contract was built in DEBUG mode.
+### Validate Your Compiled WASM Contract
+Sometimes there are difficult to find errors that lie within a succesfully compiled wasm blob. The command `swanky phala contract validate -c [CONTRACT_NAME]` will do a preliminary check to verify if the compiled contract is valid for deployment.
 
-Your contract artifacts are ready. You can find them in:
-/Users/hashwarlock/Projects/Phala/Swanky/test-swanky-phala/test-swanky-phala/contracts/http_client/target/ink
-
-  - http_client.contract (code + metadata)
-  - http_client.wasm (the contract's code)
-  - metadata.json (the contract's metadata)
-[Compiler] Files generated under:
-artifacts/http_client/http_client.contract
-artifacts/http_client/http_client.wasm
-artifacts/http_client/metadata.json
-[TypeBinder] Generating type bindings for: http_client
-Done in 47.67s.
-✔ Compiling Phat Contract http_client OK
-Phat Contract compiled successfully!
+```bash
+└─[$]> swanky phala contract validate -c phat_hello
+Validating compiled WASM of phat_hello contract...
+[ERROR] Invalid contract: validation of new code failed: sign extension operations support is not enabled (at offset 0x1a36b)
+└─[$]> swanky phala contract validate -c flipper
+Validating compiled WASM of flipper contract...
+flipper.wasm validated successfully!
+😎 Phat Contract validated successfully! 😎
 ```
 
 ### Generate Types for Contract
@@ -362,15 +349,9 @@ An example of the output will create `typings/` folder with a TypeScript file of
 ```bash
 └─[$]> swanky phala contract typegen phat_hello
 Create type bindings for contracts
-⠹ Creating type bindings for Phat Contract phat_helloyarn run v1.22.17
-$ /home/hashwarlock/Projects/Phala/Swanky/phala-swankster/node_modules/.bin/devphase typings phat_hello undefined
-[Typings] Starting
-[MultiContractExecutor] Criteria: phat_hello
-[MultiContractExecutor] Matched contracts: [ 'phat_hello' ]
-[TypeBinder] Generating type bindings for: phat_hello
-Done in 0.91s.
+⠋ Creating type bindings for Phat Contract phat_hello[TypeBinder] Generating type bindings for: phat_hello
 ✔ Creating type bindings for Phat Contract phat_hello OK
-Phat Contract typings created successfully!
+😎 Phat Contract types generated successfully! 😎
 ```
 
 ### Deploy and Instantiate Contract
@@ -399,7 +380,124 @@ EXAMPLES
   $ phala phala contract deploy [CONTRACT_NAME] [CONSTRUCTOR] -t [CONTRACT_TYPE] -n [NETWORK] -l [CLUSTER_ID] -a [ACCOUNT] [ctorArgs...]
 ```
 
+Let's deploy the `phat_hello` contract to the local testnet in cluster `0x0000000000000000000000000000000000000000000000000000000000000000`. Note if there is no account defined then `alice` will deploy the Phat Contract by default.
+```bash
+└─[$]> swanky phala contract deploy -c phat_hello -o new -l 0x0000000000000000000000000000000000000000000000000000000000000000
+Deploy contract
+⠧ Deploying contract phat_helloContract deployed
+Contract Id: 0x2e11166f9a623f7536434b5f4456b2311d3bb06717dd91a376380a61b8f9b0a8
+Cluster Id:  0x0000000000000000000000000000000000000000000000000000000000000000
+✔ Deploying contract phat_hello OK
+😎 Phat Contract deployed successfully! 😎
+```
+
 ### Interact with Deployed Contract
 
-> ************Note:************  TODO
->
+```bash
+└─[$]> swanky phala contract call --help
+Call a Phat Contract
+
+USAGE
+  $ phala phala contract call -c <value> -i <value> -m <value> [-t InkCode|SidevmCode] [-r query|tx] [-n <value>] [-l
+    <value>] [-a <value>] [-p <value>]
+
+FLAGS
+  -a, --account=<value>    [default: alice] Account used to call (managed account key)
+  -c, --contract=<value>   (required) Contract name
+  -i, --id=<value>         (required) Contract ID
+  -l, --cluster=<value>    Target cluster Id
+  -m, --method=<value>     (required) Contract method to call (name)
+  -n, --network=<value>    [default: local] Target network to deploy (local default)
+  -p, --params=<value>...  [default: ] Arguments supplied to the message
+  -r, --request=<option>   [default: query] Request type: transaction or query
+                           <options: query|tx>
+  -t, --type=<option>      [default: InkCode]
+                           <options: InkCode|SidevmCode>
+
+DESCRIPTION
+  Call a Phat Contract
+
+EXAMPLES
+  $ phala phala contract call -c [CONTRACT_NAME] -t [CONTRACT_TYPE] -i [CONTRACT_ID] -r [REQUEST_TYPE] -m [METHOD] -t [NETWORK] -l [CLUSTER_ID] -a [ACCOUNT] -p [..ARGS]
+
+```
+
+Now we can interact with our deployed contract by taking the `Contract Id: 0x2e11166f9a623f7536434b5f4456b2311d3bb06717dd91a376380a61b8f9b0a8` returned from deploying `phat_hello` successfully. There is a function called `get_eth_balance` that takes a hex string of the account address. This is how the composed call would look like.
+> **Note:** ETH address has to be converted to the Hex representation `0x307844306645333136423966303141336235666436373930463838433244353337333946383042343634` of the account opposed to using the Account ID `0xD0fE316B9f01A3b5fd6790F88C2D53739F80B464`. This can be retrieved through the `@polkadot/util` method `stringToHex(0xD0fE316B9f01A3b5fd6790F88C2D53739F80B464)`. Check the [phat_hello.test.ts](./src/templates/contracts/pink/phat_hello/tests/phat_hello.test.ts.hbs) for the example.
+
+```bash
+└─[$]> swanky phala contract call -c phat_hello -l 0x0000000000000000000000000000000000000000000000000000000000000000 -i 0x2e11166f9a623f7536434b5f4456b2311d3bb06717dd91a376380a61b8f9b0a8 -m getEthBalance -p 0x307844306645333136423966303141336235666436373930463838433244353337333946383042343634
+Executing call to Phat Contract
+Call result:
+{
+  output: { ok: { ok: '20950198739626844' } },
+  debugMessage: '',
+  result: {
+    ok: { flags: [], data: '0x0000443230393530313938373339363236383434' }
+  },
+  gasConsumed: { refTime: 1342177279, proofSize: 0 },
+  gasRequired: { refTime: 65766686719, proofSize: 0 },
+  storageDeposit: { charge: 2047 }
+}
+```
+
+### Create a New Contract
+To add a new contract there is the `swanky phala contract new [CONTRACT_NAME]` command. This can be done at the root of your new project folder and would look like the following.
+```bash
+└─[$]> swanky phala contract new new_contract
+Creating new Phat Contract
+? Which contract language should we use? pink
+? Which contract template should we use? flipper
+? What should we name your contract? new_contract
+? What is your name? hashwarlock
+? What is your email? 
+✔ Checking dependencies OK
+Initializing
+✔ Copying template files OK
+✔ Processing templates OK
+😎 Successfully created new Phat Contract! 😎
+└─[$]> ls contracts
+total 0
+drwxr-xr-x. 1 hashwarlock hashwarlock  58 Apr  4 17:16 .
+drwxr-xr-x. 1 hashwarlock hashwarlock 362 Apr  4 17:16 ..
+drwxr-xr-x. 1 hashwarlock hashwarlock  26 Apr  4 17:16 new_contract
+drwxr-xr-x. 1 hashwarlock hashwarlock  58 Apr  4 16:45 phat_hello
+```
+
+### Create/List Accounts
+There is a basic dev account generation that can be protected by a configured password if desired. By default, the list of accounts can be seen with `swanky phala account list`.
+```bash
+└─[$]> swanky phala account list
+✔ Stored dev accounts:
+ Alias   Address                                          Protected 
+ ─────── ──────────────────────────────────────────────── ───────── 
+ alice   45R2pfjQUW2s9PQRHU48HQKLKHVMaDja7N3wpBtmF28UYDs2 false     
+ bob     43qsYbZGLn2xzNuurY6BY4QNDSUU7gLEcXuckpm6B3DEmEx9 false     
+ charlie 43tXcmhJfmvbczKaPKgWXirf3a9r6zD63KAxHq4CTSPm4DRf false     
+ dave    41iFgxEGsnyGv5Abdo6Uq6n6BjoLS3p1UMKv9GvwMVuY5er7 false     
+ eve     45ppQG9QcAkUdh2AP25CxDAnBAK1EACefQA2rMtbApzu6UXa false     
+ ferdie  41GUHy9gmjhst2edhhoWCZcf6rqCheD5XMGTUF53CWJTePuc false  
+```
+
+Creating a new account is simple and can be done with `swanky phala account create -a [ALIAS]`.
+```bash
+└─[$]> swanky phala account create -a hash
+? Account passphrase (leave empty if to save as plain text)
+Account created
+
+ Alias Address                                          Islocked 
+ ───── ──────────────────────────────────────────────── ──────── 
+ hash  41b5ANRroHu44tKDoF3rtJnHFtdQnyTt72uXhad1vhja2oNQ          
+😎 Account created successfully! 😎
+└─[$]> swanky phala account list
+✔ Stored dev accounts:
+ Alias   Address                                          Protected 
+ ─────── ──────────────────────────────────────────────── ───────── 
+ alice   45R2pfjQUW2s9PQRHU48HQKLKHVMaDja7N3wpBtmF28UYDs2 false     
+ bob     43qsYbZGLn2xzNuurY6BY4QNDSUU7gLEcXuckpm6B3DEmEx9 false     
+ charlie 43tXcmhJfmvbczKaPKgWXirf3a9r6zD63KAxHq4CTSPm4DRf false     
+ dave    41iFgxEGsnyGv5Abdo6Uq6n6BjoLS3p1UMKv9GvwMVuY5er7 false     
+ eve     45ppQG9QcAkUdh2AP25CxDAnBAK1EACefQA2rMtbApzu6UXa false     
+ ferdie  41GUHy9gmjhst2edhhoWCZcf6rqCheD5XMGTUF53CWJTePuc false     
+ hash    41b5ANRroHu44tKDoF3rtJnHFtdQnyTt72uXhad1vhja2oNQ false 
+```

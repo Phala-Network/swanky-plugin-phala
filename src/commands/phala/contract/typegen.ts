@@ -1,51 +1,38 @@
-import {Command, Flags} from '@oclif/core'
-import execa from "execa";
-import fs = require("fs-extra");
-import path = require("node:path")
-import { Spinner } from "@astar-network/swanky-core";
+import {Args, Command} from '@oclif/core'
+import {Spinner} from "../../../lib/spinner";
+import {RunMode, RuntimeContext, TypeBinder} from "@devphase/service";
 
 export default class PhalaContractTypegen extends Command {
-  static description = 'Generates types for a contract'
+  static description = 'Generate type bindings for compiled contract'
 
   static examples = [
-    '<%= config.bin %> <%= command.id %> [contractName] [--watch]',
+    '<%= config.bin %> <%= command.id %> [contractName]',
   ]
 
-  static flags = {
-    verbose: Flags.boolean({ char: "v" }),
-  };
-
-  static args = [
-    {
+  static args = {
+    contractName: Args.string({
       name: "contractName",
       required: true,
       description: "Contract name",
-    },
-    {
-      name: "watchFlag",
-      required: false,
-      description: "Watch for changes"
-    }
-  ];
+    }),
+  };
 
   public async run(): Promise<void> {
-    const configExists = await fs.pathExists("devphase.config.ts");
-    if (!configExists) {
-      throw new Error("No 'devphase.config.ts' detected in current folder!");
-    }
-    const {args, flags} = await this.parse(PhalaContractTypegen);
-    const spinner = new Spinner(flags.verbose);
-    const projectPath = path.resolve();
+    const {args} = await this.parse(PhalaContractTypegen);
+
+    const runtimeContext = await RuntimeContext.getSingleton();
+    await runtimeContext.initContext(RunMode.Simple);
+    await runtimeContext.requestProjectDirectory();
 
     this.log(`Create type bindings for contracts`)
-    await spinner.runCommand(
-      async () => {
-        const {stdout} = await execa.command(`yarn devphase typings ${args.contractName} ${args.watchFlag}`, {cwd: projectPath});
-        this.log(stdout);
-      },
-      `Creating type bindings for Phat Contract ${args.contractName}`
-    )
 
-    this.log("Phat Contract types generated successfully!");
+    const spinner = new Spinner();
+    const binder = new TypeBinder(runtimeContext);
+    await spinner.runCommand(
+      async () => await binder.createBindings(args.contractName),
+      `Creating type bindings for Phat Contract ${args.contractName}`,
+    );
+
+    this.log("😎 Phat Contract types generated successfully! 😎");
   }
 }

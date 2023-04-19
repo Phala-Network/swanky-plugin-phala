@@ -1,52 +1,51 @@
 import {Command, Flags} from '@oclif/core'
-import execa from "execa";
-import path = require("node:path")
-import { Spinner } from "@astar-network/swanky-core";
+import {Spinner} from '../../../lib/spinner';
+import {ContractManager, RunMode, RuntimeContext} from "@devphase/service";
 
 export default class PhalaContractCompile extends Command {
   static description = 'Compile Contract'
 
   static examples = [
-    '<%= config.bin %> <%= command.id %> [contractName] [--watch] [--release]',
+    '<%= config.bin %> <%= command.id %> -c [contractName] -w [bool] -r [bool]',
   ]
 
-  static flags = {
-    verbose: Flags.boolean({ char: "v" }),
+  public static flags = {
+    contract: Flags.string({
+      summary: 'Contract name',
+      char: 'c'
+    }),
+    watch: Flags.boolean({
+      summary: 'Watch changes',
+      char: 'w',
+      default: false,
+    }),
+    release: Flags.boolean({
+      summary: 'Compile in release mode',
+      char: 'r',
+      default: false,
+    })
   };
 
-  static args = [
-    {
-      name: "contractName",
-      required: false,
-      description: "contract name of phat contract",
-    },
-    {
-      name: "watchFlag",
-      required: false,
-      description: "watch for changes"
-    },
-    {
-      name: "releaseFlag",
-      required: false,
-      description: "cargo contract build --release"
-    }
-  ];
-
   public async run(): Promise<void> {
-    const {args, flags} = await this.parse(PhalaContractCompile)
-    const projectPath = path.resolve()
-    const spinner = new Spinner(flags.verbose);
+    const {flags} = await this.parse(PhalaContractCompile);
+
+    const runtimeContext = await RuntimeContext.getSingleton();
+    await runtimeContext.initContext(RunMode.Simple);
+    await runtimeContext.requestProjectDirectory();
 
     this.log(`Compile contract(s)`)
-    await spinner.runCommand(
-      async () => {
-        const {stdout} = await
-          execa.command(`yarn devphase contract compile -c ${args.contractName} ${args.watchFlag} ${args.releaseFlag}`, { cwd: projectPath })
-        this.log(stdout);
-      },
-      `Compiling Phat Contract ${args.contractName}`
-    )
+    const spinner = new Spinner();
+    const contractManager = new ContractManager(runtimeContext);
 
-    this.log("Phat Contract compiled successfully!");
+    await spinner.runCommand(
+      async () => await contractManager.compile({
+          contractName: flags.contract,
+          watch: flags.watch,
+          release: flags.release,
+        }),
+      `Compiling Phat Contract ${flags.contract}`
+    );
+
+    this.log("😎 Phat Contract compiled successfully! 😎");
   }
 }

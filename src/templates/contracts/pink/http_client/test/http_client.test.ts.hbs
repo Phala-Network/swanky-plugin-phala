@@ -1,39 +1,38 @@
-import { expect, use } from "chai";
-import chaiAsPromised from "chai-as-promised";
-import {{contract_name_pascal}}Factory from "./typedContract/constructors/{{contract_name}}";
-import {{contract_name_pascal}} from "./typedContract/contracts/{{contract_name}}";
-import { ApiPromise, WsProvider, Keyring } from "@polkadot/api";
-import { KeyringPair } from "@polkadot/keyring/types";
+import { ContractType } from '@devphase/service';
+import * as PhalaSdk from '@phala/sdk';
+import type { KeyringPair } from '@polkadot/keyring/types';
+import { stringToHex } from '@polkadot/util';
+import { {{contract_name_pascal}} } from "@/typings/{{contract_name_pascal}}";
 
-use(chaiAsPromised);
+describe("{{contract_name_pascal}} test", () => {
+    let factory: {{contract_name_pascal}}.Factory;
+    let contract: {{contract_name_pascal}}.Contract;
+    let signer: KeyringPair;
+    let certificate : PhalaSdk.CertificateData;
 
-// Create a new instance of contract
-const wsProvider = new WsProvider("ws://127.0.0.1:9944");
-// Create a keyring instance
-const keyring = new Keyring({ type: "sr25519" });
+    before(async function setup(): Promise<void> {
+        factory = await this.devPhase.getFactory(
+            './contracts/{{contract_name}}/target/ink/{{contract_name}}.contract',
+            { contractType: ContractType.InkCode }
+        );
 
-describe("{{contract_name}} test", () => {
-  let {{contract_name}}Factory: {{contract_name_pascal}}Factory;
-  let api: ApiPromise;
-  let deployer: KeyringPair;
-  
-  let contract: {{contract_name_pascal}};
-  const initialState = true;
+        await factory.deploy();
 
-  before(async function setup(): Promise<void> {
-    api = await ApiPromise.create({ provider: wsProvider });
-    deployer = keyring.addFromUri("//Alice");
+        signer = this.devPhase.accounts.bob;
+        certificate = await PhalaSdk.signCertificate({
+            api: this.api,
+            pair: signer,
+        });
+    });
 
-    {{contract_name}}Factory = new {{contract_name_pascal}}Factory(api, deployer);
+    describe('new constructor', () => {
+        before(async function() {
+            contract = await factory.instantiate('new', []);
+        });
 
-    contract = new {{contract_name_pascal}}(
-      (await {{contract_name}}Factory.new(initialState)).address,
-      deployer,
-      api
-    );
-  });
-
-  after(async function tearDown() {
-    await api.disconnect();
-  });
+        it('Should be able...', async function() {
+            const response = await contract.query.test(certificate, {}, message);
+            console.log(response.output.toJSON());
+        });
+    });
 });

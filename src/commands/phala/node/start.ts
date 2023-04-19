@@ -1,25 +1,51 @@
-import {Command} from '@oclif/core'
-import execa from 'execa'
-import fs = require("fs-extra");
-import path = require("node:path")
+import {Command, Flags} from '@oclif/core'
+import {RunMode, RuntimeContext, StackManager} from '@devphase/service';
 
 export default class PhalaNodeStart extends Command {
-  static description = 'Starting local stack (phala-node + pruntime + pherry)'
+  static description = 'Starting local testnet stack (phala-node + pruntime + pherry)'
 
   static examples = [
     '<%= config.bin %> <%= command.id %>',
   ]
 
+  public static flags = {
+    'save-logs': Flags.boolean({
+      summary: 'Save logs to file',
+      default: false
+    }),
+  };
+
   public async run(): Promise<void> {
-    const configExists = await fs.pathExists("devphase.config.ts");
-    if (!configExists) {
-      throw new Error("No 'devphase.config.ts' detected in current folder!");
+    const {flags} = await this.parse(PhalaNodeStart);
+
+    this.log(`Starting local tesnet stack`);
+
+    const runtimeContext = await RuntimeContext.getSingleton();
+    await runtimeContext.initContext(RunMode.Simple);
+
+    await runtimeContext.requestProjectDirectory();
+    await runtimeContext.requestStackBinaries();
+
+    const stackManager = new StackManager(runtimeContext);
+
+    try {
+      await stackManager.startStack(
+        RunMode.Simple,
+        {
+          saveLogs: flags['save-logs'],
+        }
+      );
     }
-    this.log(`Starting Stack`)
+    catch (e) {
+      await stackManager.stopStack();
+      throw e;
+    }
 
-    const projectPath = path.resolve()
+    process.on('SIGINT', async() => {
+      this.error('Got SIGINT - shutting down');
 
-    await execa.command(`yarn devphase stack`, { cwd: projectPath })
+      await stackManager.stopStack();
+    });
 
   }
 }
