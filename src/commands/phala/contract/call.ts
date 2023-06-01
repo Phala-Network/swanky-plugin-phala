@@ -6,7 +6,7 @@ export default class PhalaContractCall extends Command {
   static description = 'Call a Phat Contract'
 
   static examples = [
-    '<%= config.bin %> <%= command.id %> -c [CONTRACT_NAME] -t [CONTRACT_TYPE] -i [CONTRACT_ID] -r [REQUEST_TYPE] -m [METHOD] -t [NETWORK] -l [CLUSTER_ID] -a [ACCOUNT] -p [..ARGS]',
+    '<%= config.bin %> <%= command.id %> -c [CONTRACT_NAME] -t [CONTRACT_TYPE] -i [CONTRACT_ID] -r [REQUEST_TYPE] -m [METHOD] -n [NETWORK] -l [CLUSTER_ID] -a [ACCOUNT] -p [..ARGS]',
   ]
 
   public static flags = {
