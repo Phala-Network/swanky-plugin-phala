@@ -31,7 +31,7 @@ mod {{contract_name_snake}} {
 
     impl {{contract_name_pascal}} {
         #[ink(constructor)]
-        pub fn new(init_value: bool) -> Self {
+        pub fn new() -> Self {
             let admin = Self::env().caller();
             Self {
                 admin,

@@ -56,6 +56,10 @@
       "nodeUrl": "ws://localhost:{{stack.node.port}}",
       "workerUrl": "http://localhost:{{stack.pruntime.port}}",
       "blockTime": 500
+    },
+    "phatUi": {
+      "nodeUrl": "wss://poc5.phala.network/ws",
+      "workerUrl": "https://poc5.phala.network/tee-api-1"
     }
   },
   "testing": {

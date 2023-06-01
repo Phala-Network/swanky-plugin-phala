@@ -37,10 +37,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@devphase/service@0.1.15":
-  version "0.1.15"
-  resolved "https://registry.yarnpkg.com/@devphase/service/-/service-0.1.15.tgz#608627255f5aedc629911bdcb3573a8e71597847"
-  integrity sha512-w9XJS6HsiIi1cI1LWZPZX1kcZD8EraZ2Fq6tE8nwqFoHt5dYqXZpTvCX/vpoF2JlUvzl9IUAkHdpmHau5UgmPw==
+"@devphase/service@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@devphase/service/-/service-0.2.1.tgz#0af4017a2dce6659ed5ed70c329e0f13f2f20847"
+  integrity sha512-LOy8Ogsn032HNA4vl8R127S1guX/H4jYx6GCrwrpld3KUkf16Yr0CEgop2wZRsItD0tp7a4R2mHFMm9gsCj9kQ==
   dependencies:
     "@phala/ink-validator" "^0.1.0"
     "@phala/sdk" "^0.4.0"
