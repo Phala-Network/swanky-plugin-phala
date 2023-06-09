@@ -19,11 +19,6 @@ pink-extension-runtime = "0.4"
 name = "{{contract_name_snake}}"
 path = "src/lib.rs"
 
-crate-type = [
-	# Used for normal contract Wasm blobs.
-	"cdylib",
-]
-
 [features]
 default = ["std"]
 std = [
