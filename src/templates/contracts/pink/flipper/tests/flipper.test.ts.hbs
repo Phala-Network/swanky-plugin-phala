@@ -25,13 +25,13 @@ describe("{{contract_name_pascal}} test", () => {
         });
     });
 
-    describe('new constructor', () => {
+    describe('default constructor', () => {
         before(async function() {
-            contract = await factory.instantiate('new', []);
+            contract = await factory.instantiate('default', []);
         });
 
         it('Should be able...', async function() {
-            const response = await contract.query.test(certificate, {}, message);
+            const response = await contract.query.get(certificate, {});
             console.log(response.output.toJSON());
         });
     });
