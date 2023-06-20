@@ -1,91 +1,102 @@
 {
-  "stack": {
-    "blockTime": 500,
-    "version": "latest",
-    "node": {
-      "port": 39944,
-      "binary": "{{directories.stacks}}/{{stack.version}}/phala-node",
-      "workingDir": "{{directories.stacks}}/.data/node",
-      "envs": {},
-      "args": {
-        "--dev": true,
-        "--port": 33333,
-        "--rpc-port": 39933,
-        "--ws-external": true,
-        "--unsafe-ws-external": true,
-        "--rpc-methods": "Unsafe",
-        "--block-millisecs": "{{stack.blockTime}}",
-        "--ws-port": "{{stack.node.port}}"
-      },
-      "timeout": 10000
+    "directories": {
+        "artifacts": "artifacts",
+        "contracts": "contracts",
+        "logs": "logs",
+        "scripts": "scripts",
+        "stacks": "stacks",
+        "tests": "tests",
+        "typings": "typings"
     },
-    "pruntime": {
-      "port": 38000,
-      "binary": "{{directories.stacks}}/{{stack.version}}/pruntime",
-      "workingDir": "{{directories.stacks}}/.data/pruntime",
-      "envs": {
-        "RUST_LOG": "debug,runtime=trace"
-      },
-      "args": {
-        "--allow-cors": true,
-        "--cores": 0,
-        "--port": "{{stack.pruntime.port}}",
-        "--address": "0.0.0.0"
-      },
-      "timeout": 2000
+
+    "stack": {
+        "blockTime": 3000,
+        "version": "latest",
+        "setupOptions": {
+            "mode": "StackSetupMode.None",
+            "workerUrl": "http://localhost:{{stack.pruntime.port}}"
+        },
+        "node": {
+            "port": 9944,
+            "binary": "{{directories.stacks}}/{{stack.version}}/phala-node",
+            "workingDir": "{{directories.stacks}}/.data/node",
+            "envs": {},
+            "args": {
+                "--dev": true,
+                "--rpc-methods": "Unsafe",
+                "--block-millisecs": "{{stack.blockTime}}",
+                "--ws-port": "{{stack.node.port}}"
+            },
+            "timeout": 10000
+        },
+        "pruntime": {
+            "port": 8000,
+            "binary": "{{directories.stacks}}/{{stack.version}}/pruntime",
+            "workingDir": "{{directories.stacks}}/.data/pruntime",
+            "dataDir": "{{directories.stacks}}/.data/pruntime",
+            "envs": {},
+            "args": {
+                "--allow-cors": true,
+                "--cores": 0,
+                "--port": "{{stack.pruntime.port}}"
+            },
+            "timeout": 2000
+        },
+        "pherry": {
+            "gkMnemonic": "//Alice",
+            "binary": "{{directories.stacks}}/{{stack.version}}/pherry",
+            "workingDir": "{{directories.stacks}}/.data/pherry",
+            "dataDir": "{{directories.stacks}}/.data/pherry",
+            "envs": {},
+            "args": {
+                "--no-wait": true,
+                "--mnemonic": "{{stack.pherry.gkMnemonic}}",
+                "--inject-key": "0000000000000000000000000000000000000000000000000000000000000001",
+                "--substrate-ws-endpoint": "ws://localhost:{{stack.node.port}}",
+                "--pruntime-endpoint": "http://localhost:{{stack.pruntime.port}}",
+                "--dev-wait-block-ms": "{{stack.blockTime}}"
+            },
+            "timeout": 2000
+        }
     },
-    "pherry": {
-      "gkMnemonic": "//Ferdie",
-      "binary": "{{directories.stacks}}/{{stack.version}}/pherry",
-      "workingDir": "{{directories.stacks}}/.data/pherry",
-      "envs": {},
-      "args": {
-        "--no-wait": true,
-        "--mnemonic": "{{stack.pherry.gkMnemonic}}",
-        "--inject-key": "0000000000000000000000000000000000000000000000000000000000000001",
-        "--substrate-ws-endpoint": "ws://localhost:{{stack.node.port}}",
-        "--pruntime-endpoint": "http://localhost:{{stack.pruntime.port}}",
-        "--dev-wait-block-ms": "{{stack.blockTime}}",
-        "--attestation-provider": "none"
-      },
-      "timeout": 5000
+    "networks": {
+        "local": {
+            "nodeUrl": "ws://localhost:{{stack.node.port}}",
+            "nodeApiOptions": {},
+            "workerUrl": "http://localhost:{{stack.pruntime.port}}",
+            "defaultClusterId": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "blockTime": 3000
+        },
+        "poc5": {
+            "nodeUrl": "wss://poc5.phala.network/ws",
+            "workerUrl": "https://poc5.phala.network/tee-api-1",
+            "defaultClusterId": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+    },
+    "testing": {
+        "mocha": {},
+        "blockTime": 100,
+        "stackSetupConfig": {
+            "setup": {
+                "custom": null,
+                "timeout": 120000
+            },
+            "teardown": {
+                "custom": null,
+                "timeout": 10000
+            }
+        },
+        "stackLogOutput": false
+    },
+    "accountsConfig": {
+        "keyrings": {
+            "alice": "//Alice",
+            "bob": "//Bob",
+            "charlie": "//Charlie",
+            "dave": "//Dave",
+            "eve": "//Eve",
+            "ferdie": "//Ferdie"
+        },
+        "suAccount": "alice"
     }
-  },
-  "networks": {
-    "local": {
-      "nodeUrl": "ws://localhost:{{stack.node.port}}",
-      "workerUrl": "http://localhost:{{stack.pruntime.port}}",
-      "blockTime": 500
-    },
-    "phatUi": {
-      "nodeUrl": "wss://poc5.phala.network/ws",
-      "workerUrl": "https://poc5.phala.network/tee-api-1"
-    }
-  },
-  "testing": {
-    "mocha": {},
-    "spawnStack": true,
-    "stackLogOutput": true,
-    "envSetup": {
-      "setup": {
-        "custom": null,
-        "timeout": 120000
-      },
-      "teardown": {
-        "custom": null,
-        "timeout": 10000
-      }
-    }
-  },
-  "accountsConfig": {
-    "keyrings": {
-      "alice": "//Alice",
-      "bob": "//Bob",
-      "charlie": "//Charlie",
-      "dave": "//Dave",
-      "eve": "//Eve",
-      "ferdie": "//Ferdie"
-    },
-    "suAccount": "alice"
-  }
 }

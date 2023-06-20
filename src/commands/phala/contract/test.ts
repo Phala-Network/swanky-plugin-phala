@@ -44,7 +44,7 @@ export default class PhalaContractTest extends Command {
     return tester.runTests({
       suite: flags.suite,
       network: flags.network,
-      spawnStack: flags.externalStack,
+      spawnStack: !flags.externalStack,
       stackSetupMode: <any>flags.stackSetupMode,
     });
 
