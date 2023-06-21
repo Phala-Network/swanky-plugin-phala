@@ -16,7 +16,7 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": "src"
   },
 
   "include": ["src", "tests"],
