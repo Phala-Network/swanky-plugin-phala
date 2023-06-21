@@ -1,7 +1,7 @@
 {
   "name": "@phala/swanky-plugin-phala",
   "description": "Phala plugin for Swanky CLI tool",
-  "version": "0.1.11",
+  "version": "0.1.12-beta",
   "author": "Phala Network",
   "bin": {
     "phala": "./bin/run"
