@@ -6,22 +6,22 @@
     "strict": true,
     "skipLibCheck": true,
     "target": "esnext",
+    "moduleResolution": "node",
     "noImplicitAny": false,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
     "resolveJsonModule": true,
     "suppressImplicitAnyIndexErrors": true,
-    "composite": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "baseUrl": ".",
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "."
   },
 
-  "include": ["src/**/*"],
+  "include": ["src", "tests"],
   "ts-node": {
-    "transpileOnly": false,
+    "transpileOnly": true,
     "require": [
       "tsconfig-paths/register"
     ]

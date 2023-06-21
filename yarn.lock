@@ -37,7 +37,7 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@devphase/service@0.2.2":
+"@devphase/service@^0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@devphase/service/-/service-0.2.2.tgz#8da66a576b281b7e0a46a436cbd73bdf1a8f9b3a"
   integrity sha512-hJ18pVNpE64bhgFexsRrLHusAtXW2GcpnP75moPUM5ANcCGBpVJDRenK4DkQao9qAhKHTeDt1EkBM8C3Y3+Nyw==
