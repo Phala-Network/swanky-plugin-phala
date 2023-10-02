@@ -1,5 +1,5 @@
-import {Args, Command, Flags} from '@oclif/core';
-import { ContractCallType, ContractManager, ContractType, RunMode, RuntimeContext } from '@devphase/service';
+import {Command, Flags} from '@oclif/core';
+import { ContractManager, ContractType, RunMode, RuntimeContext } from '@devphase/service';
 import chalk from 'chalk';
 
 export default class PhalaContractCall extends Command {
@@ -29,8 +29,8 @@ export default class PhalaContractCall extends Command {
     request: Flags.string({
       summary: 'Request type: transaction or query',
       char: 'r',
-      default: ContractCallType.Query,
-      options: Object.values(ContractCallType)
+      default: ContractManager.ContractCallType.Query,
+      options: Object.values(ContractManager.ContractCallType)
     }),
     method: Flags.string({
       summary: 'Contract method to call (name)',

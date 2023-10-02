@@ -31,7 +31,8 @@ export class Spinner {
         this.ora.text = text;
     }
 
-    async runCommand(
+    // @ts-ignore
+  async runCommand(
         command: () => Promise<unknown>,
         runningMessage: string,
         successMessage?: string,

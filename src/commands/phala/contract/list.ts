@@ -1,5 +1,5 @@
 import {ux, Command} from '@oclif/core'
-import {ContractDefinition, ContractManager, RunMode, RuntimeContext} from '@devphase/service';
+import {ContractManager, RunMode, RuntimeContext} from '@devphase/service';
 import { table } from '@oclif/core/lib/cli-ux/styled/table';
 import chalk from 'chalk';
 import sortBy from 'lodash/sortBy';
@@ -25,7 +25,7 @@ export default class PhalaContractList extends Command {
 
     const contractManager = new ContractManager(runtimeContext);
 
-    let contractDefinitions : ContractDefinition[] = await contractManager.loadContractsDefFromStorageFile();
+    let contractDefinitions = await contractManager.loadContractsDefFromStorageFile();
     contractDefinitions = sortBy(contractDefinitions, [ 'type', 'network', 'name' ]);
 
     const contractsOutput = Object.values(contractDefinitions)
