@@ -71,6 +71,11 @@
             "nodeUrl": "wss://poc5.phala.network/ws",
             "workerUrl": "https://poc5.phala.network/tee-api-1",
             "defaultClusterId": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        },
+        "poc6": {
+            "nodeUrl": "wss://poc6.phala.network/ws",
+            "workerUrl": "https://phat-cluster-us.phala.network/poc6/pruntime/0xac5087e0",
+            "defaultClusterId": "0x0000000000000000000000000000000000000000000000000000000000000001"
         }
     },
     "testing": {
