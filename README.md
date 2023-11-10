@@ -4,12 +4,12 @@
 
 Ensure your rust toolchain requirements are installed correctly to ensure your contracts can be built correctly.
 
-| Rust Toolchain | Requirement                              | 
-|----------------|------------------------------------------|
-| cargo          | <= `cargo 1.69.0 (6e9a83356 2023-04-12)`  |
-| cargo-contract | <= `3.0.1-unknown-x86_64-unknown-linux-gnu` |
-| target         | `wasm32-unknown-unknown`                   |
-| component      | `rust-src`                                 |               |
+| Rust Toolchain | Requirement                             | 
+|----------------|-----------------------------------------|
+| cargo          | <= `cargo 1.73.0 (cc66ad468 2023-10-03)` |
+| cargo-contract | <= `3.2.0-unknown-x86_64-unknown-linux-gnu` |
+| target         | `wasm32-unknown-unknown`                |
+| component      | `rust-src`                              |               |
 
 ## Swanky Suite
 

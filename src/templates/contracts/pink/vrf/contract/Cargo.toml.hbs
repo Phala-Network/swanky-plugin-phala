@@ -1,0 +1,32 @@
+[package]
+name = "{{contract_name_snake}}"
+version = "0.0.1"
+authors = ["{{author_name}}"]
+edition = "2021"
+rust-version = "1.56.1"
+
+[dependencies]
+ink = { version = "4", default-features = false }
+ink_storage = { version = "4", default-features = false }
+pink-extension = { version = "0.4.6", default-features = false }
+this-crate = "0.1.0"
+
+scale = { package = "parity-scale-codec", version = "3.1", default-features = false, features = ["derive"] }
+scale-info = { version = "2.1", default-features = false, features = ["derive"], optional = true }
+
+[dev-dependencies]
+pink-extension-runtime = "0.2"
+
+[lib]
+name = "{{contract_name_snake}}"
+path = "src/lib.rs"
+
+[features]
+default = ["std"]
+std = [
+    "ink/std",
+    "scale/std",
+    "scale-info/std",
+    "pink-extension/std",
+]
+ink-as-dependency = []
