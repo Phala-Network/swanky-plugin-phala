@@ -7,7 +7,7 @@
     "phala": "./bin/run"
   },
   "dependencies": {
-    "@devphase/service": "^0.6.7",
+    "@devphase/service": "~0.6",
     "@phala/ink-validator": "^0.1.0",
     "@oclif/core": "2.5.0",
     "@oclif/plugin-help": "5.2.7",
